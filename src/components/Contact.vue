@@ -12,6 +12,27 @@ export default {
     </div>
   </div>
   <main class="content-contact">
-    <h1>Contact</h1>
+    <div class="parent">
+      <div class="div1">
+        <h3>Contactez-moi</h3>
+      </div>
+      <div class="div2 imp">
+        <span>Nom</span>
+        <input placeholder="Votre nom">
+      </div>
+      <div class="div3 imp">
+        <span>Email</span>
+        <input placeholder="email@example.com">
+      </div>
+      <div class="div4 imp">
+        <span>Message</span>
+        <input placeholder="Bonjour, mon nom est...">
+      </div>
+      <div class="div5">
+        <router-link to="/contact">
+          Envoyer
+        </router-link>
+      </div>
+    </div>
   </main>
 </template>

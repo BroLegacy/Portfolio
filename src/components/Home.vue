@@ -19,8 +19,47 @@
       </div>
       <div class="comp">
         <span>Mes Compétences</span>
-        <div class="all-item">
-
+        <div class="parent">
+          <div class="div1 item">
+            <img src="../assets/img/HTML.svg">
+            <span>HTML</span>
+          </div>
+          <div class="div2 item">
+            <img src="../assets/img/css.svg">
+            <span>CSS</span>
+          </div>
+          <div class="div3 item">
+            <img src="../assets/img/js.svg">
+            <span>JavaScript</span>
+          </div>
+          <div class="div4 item">
+            <img src="../assets/img/react.svg">
+            <span>ReactJS</span>
+          </div>
+          <div class="div5 item">
+            <img src="../assets/img/nodejs.svg">
+            <span>NodeJS</span>
+          </div>
+          <div class="div6 item">
+            <img src="../assets/img/figma.svg">
+            <span>Figma</span>
+          </div>
+          <div class="div7 item">
+            <img src="../assets/img/vue.svg">
+            <span>Vue.js</span>
+          </div>
+          <div class="div8 item">
+            <img src="../assets/img/phpstorm.svg">
+            <span>PhpStorm</span>
+          </div>
+          <div class="div9 item">
+            <img src="../assets/img/git.svg">
+            <span>Git</span>
+          </div>
+          <div class="div10 item">
+            <img src="../assets/img/npm.svg">
+            <span>NPM</span>
+          </div>
         </div>
       </div>
     </div>
