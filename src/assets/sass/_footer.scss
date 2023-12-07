@@ -1,5 +1,39 @@
 footer{
-  background: Blue;
-  width: 1000px;
-  height: 100px;
+  background: Black;
+  width: -webkit-fill-available;
+  height: auto;
+  display: inline-flex !important;
+  justify-content: space-around;
+  align-items: start;
+  nav{
+    ul{
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 30px;
+      font-family: Roboto;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      text-transform: uppercase;
+      color: white;
+      list-style: none;
+      a{
+        text-decoration: none;
+        color: white;
+      }
+    }
+  }
+  .info{
+    color: white;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    list-style: none;
+    .pad{
+      margin-bottom: 20px;
+    }
+  }
 }
