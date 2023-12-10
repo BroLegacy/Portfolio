@@ -164,3 +164,26 @@ footer{
     }
   }
 }
+@media (max-width: 425px){
+  footer{
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    padding: 80px 0 !important;
+  }
+  label{
+    left: 80vw;
+  }
+  .all{
+    .menu{
+      flex-direction: column;
+      width: fit-content;
+      gap: 90px;
+      .right{
+        justify-content: start;
+      }
+    }
+  }
+}

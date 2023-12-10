@@ -83,7 +83,7 @@ import { ref, watch } from 'vue';
 const showAll = ref(false);
 
 watch(showAll, (newValue) => {
-  const bodyOverflow = newValue ? 'hidden' : 'scroll';
+  const bodyOverflow = newValue ? 'hidden' : 'auto';
   document.body.style.overflow = bodyOverflow;
 });
 
