@@ -64,27 +64,27 @@
       </div>
     </div>
     <div class="parent2">
-      <div class="div1 item">
-        <img src="../assets/img/bg.png">
+      <a class="div1 item">
+        <img src="../assets/img/portfolio.png">
         <div class="text2">
-          <span>Cuisine Organiser</span>
-          <p>Une application de recette</p>
+          <span>Portfolio</span>
+          <p>Mon portfolio</p>
         </div>
-      </div>
-      <div class="div2 item">
-        <img src="../assets/img/bg.png">
+      </a>
+      <a class="div2 item" href="https://github.com/BroLegacy/TarkovToolkit" target="_blank">
+        <img src="../assets/img/tarkov.png">
         <div class="text2">
-          <span>Cuisine Organiser</span>
-          <p>Une application de recette</p>
+          <span>TarkovToolkit</span>
+          <p>Une application d'aide pour Tarkov</p>
         </div>
-      </div>
-      <div class="div3 item">
-        <img src="../assets/img/bg.png">
+      </a>
+      <a class="div3 item" href="https://github.com/BroLegacy/framwork" target="_blank">
+        <img src="../assets/img/framework.png">
         <div class="text2">
-          <span>Cuisine Organiser</span>
-          <p>Une application de recette</p>
+          <span>Framework</span>
+          <p>Un simple framwork php</p>
         </div>
-      </div>
+      </a>
     </div>
     <div class="btn">
       <router-link to="/projets">

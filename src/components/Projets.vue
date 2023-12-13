@@ -13,48 +13,48 @@ export default {
   </div>
   <main class="content-projets">
     <div class="parent">
-      <div class="div1 item">
-        <img src="../assets/img/bg.png">
+      <a class="div1 item">
+        <img src="../assets/img/portfolio.png">
         <div class="text">
-          <span>Cuisine Organiser</span>
+          <span>Portfolio</span>
+          <p>Mon portfolio</p>
+        </div>
+      </a>
+      <a class="div2 item" href="https://github.com/BroLegacy/TarkovToolkit" target="_blank">
+        <img src="../assets/img/tarkov.png">
+        <div class="text">
+          <span>TarkovToolkit</span>
+          <p>Une application d'aide pour Tarkov</p>
+        </div>
+      </a>
+      <a class="div3 item" href="https://github.com/BroLegacy/framwork" target="_blank">
+        <img src="../assets/img/framework.png">
+        <div class="text">
+          <span>Framework</span>
+          <p>Un simple framwork php</p>
+        </div>
+      </a>
+      <a class="div4 item" href="https://github.com/BroLegacy/Mealpedia" target="_blank">
+        <img src="../assets/img/mealpedia.png">
+        <div class="text">
+          <span>Mealpedia</span>
           <p>Une application de recette</p>
         </div>
-      </div>
-      <div class="div2 item">
-        <img src="../assets/img/bg.png">
+      </a>
+      <a class="div5 item" href="https://github.com/BroLegacy/demineur" target="_blank">
+        <img src="../assets/img/demineur.png">
         <div class="text">
-          <span>Cuisine Organiser</span>
-          <p>Une application de recette</p>
+          <span>Démineur</span>
+          <p>Un démineur en python</p>
         </div>
-      </div>
-      <div class="div3 item">
-        <img src="../assets/img/bg.png">
+      </a>
+      <a class="div6 item">
+        <img src="../assets/img/gify.png">
         <div class="text">
-          <span>Cuisine Organiser</span>
-          <p>Une application de recette</p>
+          <span>Gify</span>
+          <p>Un simple site de gif</p>
         </div>
-      </div>
-      <div class="div4 item">
-        <img src="../assets/img/bg.png">
-        <div class="text">
-          <span>Cuisine Organiser</span>
-          <p>Une application de recette</p>
-        </div>
-      </div>
-      <div class="div5 item">
-        <img src="../assets/img/bg.png">
-        <div class="text">
-          <span>Cuisine Organiser</span>
-          <p>Une application de recette</p>
-        </div>
-      </div>
-      <div class="div6 item">
-        <img src="../assets/img/bg.png">
-        <div class="text">
-          <span>Cuisine Organiser</span>
-          <p>Une application de recette</p>
-        </div>
-      </div>
+      </a>
     </div>
     <div class="btn">
       <router-link to="/contact">
