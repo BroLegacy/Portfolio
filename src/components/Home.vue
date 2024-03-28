@@ -21,7 +21,7 @@
         <span>Mes Compétences</span>
         <div class="parent">
           <div class="div1 item">
-            <img src="../assets/img/HTML.svg">
+            <img src="../assets/img/html.svg">
             <span>HTML</span>
           </div>
           <div class="div2 item">
