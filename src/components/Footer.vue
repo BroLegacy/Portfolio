@@ -2,7 +2,7 @@
   <div class="all" :class="{ show: !showAll }">
     <div class="menu">
       <div class="left">
-        <img src="../assets/img/menu.svg">
+        <img src="../assets/img/menu.svg" alt="icon menu">
         <nav>
           <ul>
             <li>
