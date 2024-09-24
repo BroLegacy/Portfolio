@@ -1,14 +1,40 @@
 <script>
-  export default {
-    props: ['title', 'sub']
-  };
+export default {
+  props: ['title', 'sub'],
+  data() {
+    return {
+      subText: this.sub, // Utiliser la prop par défaut
+      texts: [
+        "Développeur Web",
+        "Créateur Passionné",
+        "Amateur de Technologies",
+        "Explorateur de Nouveaux Outils",
+        "Enthousiaste du Code"
+      ]
+    };
+  },
+  mounted() {
+    this.startTextChange();
+  },
+  methods: {
+    startTextChange() {
+      setInterval(() => {
+        this.changeText();
+      }, 3000); // Change de texte toutes les 3 secondes
+    },
+    changeText() {
+      const randomIndex = Math.floor(Math.random() * this.texts.length);
+      this.subText = this.texts[randomIndex];
+    }
+  }
+};
 </script>
 
 <template>
   <div class="top">
     <div class="title">
       <h1>{{ title }}</h1>
-      <h2>{{ sub }}</h2>
+      <h2 class="animated-h2">{{ subText }}</h2>
     </div>
   </div>
   <main class="content-home">

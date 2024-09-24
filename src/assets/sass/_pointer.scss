@@ -1,0 +1,11 @@
+.cursor-follower {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: fixed;
+  background-color: rgb(255, 255, 255);
+  pointer-events: none;
+  transition: transform 125ms ease;
+  z-index: 1000;
+  mix-blend-mode: difference;
+}
