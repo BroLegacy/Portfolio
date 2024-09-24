@@ -8,4 +8,7 @@
   transition: transform 125ms ease;
   z-index: 1000;
   mix-blend-mode: difference;
+  @media (max-width: 768px) {
+    display: none;
+  }
 }

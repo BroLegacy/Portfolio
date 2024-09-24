@@ -1,9 +1,11 @@
 .content-home{
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 0 60px;
+  z-index: 1111;
   a {
     transition: background 0.3s ease, transform 0.2s ease;
     &:hover {
@@ -139,15 +141,16 @@
       justify-content: center;
       align-items: center;
       gap: 10px;
-      color: black;
+      color: #ffffff;
       text-decoration: none;
       padding: 20px 50px;
-      background: #D9D9D9;
+      background: #000000;
       font-family: Roboto;
       font-size: 16px;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
+      border-radius: 10px;
     }
   }
   @keyframes fadeIn {

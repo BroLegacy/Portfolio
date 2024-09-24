@@ -1,4 +1,6 @@
 .content-contact{
+  position: relative;
+  z-index: 1111;
   margin: 0 60px;
   .parent {
     display: grid;
@@ -40,16 +42,17 @@
         justify-content: center;
         align-items: center;
         gap: 10px;
-        color: black;
+        color: #ffffff;
         text-decoration: none;
         padding: 20px 50px;
-        background: #D9D9D9;
+        background: #000000;
         font-family: Roboto;
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
         margin-bottom: 80px;
+        border-radius: 10px;
       }
     }
     .imp{
