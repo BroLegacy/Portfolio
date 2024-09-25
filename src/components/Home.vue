@@ -1,5 +1,8 @@
 <script>
+import ParticlesBackground from "./ParticlesBackground.vue";
+
 export default {
+  components: {ParticlesBackground},
   props: ['title', 'sub'],
   data() {
     return {
@@ -31,6 +34,7 @@ export default {
 
 <template>
   <div class="top">
+    <particles-background/>
     <div class="title">
       <h1>{{ title }}</h1>
       <h2 class="animated-h2">{{ subText }}</h2>

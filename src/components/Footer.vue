@@ -22,7 +22,7 @@
       </div>
       <div class="right">
         <ul>
-          <li>corantyn.5@gmail.com</li>
+          <li>contact.feid@gmail.com</li>
           <li>06 04 51 01 13</li>
           <li>
             <div class="social">

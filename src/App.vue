@@ -41,7 +41,6 @@ onMounted(() => {
   <transition name="fade-slide">
     <!-- Cette div s'affiche seulement après le chargement de la page -->
     <div v-if="isPageLoaded" id="app" class="page-container">
-      <Pointer />
       <router-view />
       <Footer />
     </div>
@@ -64,6 +63,10 @@ onMounted(() => {
   font-size: 96px; /* Taille de la police */
   z-index: 1000; /* Au-dessus de tout le reste */
   text-align: center; /* Centre le texte */
+  -webkit-user-select: none; /* Pour les navigateurs WebKit */
+  -moz-user-select: none; /* Pour Firefox */
+  -ms-user-select: none; /* Pour Internet Explorer */
+  user-select: none; /* Pour les autres navigateurs */
   h2{
     font-family: League Spartan, sans-serif;
     font-size: 32px;

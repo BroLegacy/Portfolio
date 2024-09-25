@@ -1,11 +1,15 @@
 <script>
+import ParticlesBackground from "./ParticlesBackground.vue";
+
 export default {
+  components: {ParticlesBackground},
   props: ['title', 'sub']
 };
 </script>
 
 <template>
   <div class="top">
+    <particles-background/>
     <div class="title">
       <h1>{{ title }}</h1>
       <h2>{{ sub }}</h2>

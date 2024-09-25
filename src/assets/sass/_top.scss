@@ -1,4 +1,8 @@
 .top {
+  -webkit-user-select: none; /* Pour les navigateurs WebKit */
+  -moz-user-select: none; /* Pour Firefox */
+  -ms-user-select: none; /* Pour Internet Explorer */
+  user-select: none; /* Pour les autres navigateurs */
   background: black;
   width: -webkit-fill-available;
   height: 100vh;
