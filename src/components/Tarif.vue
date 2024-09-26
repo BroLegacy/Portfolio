@@ -41,7 +41,7 @@ export default {
           <td class="feature">Nombre de Pages</td>
           <td class="price">1️</td>
           <td class="price">4️</td>
-          <td class="price">10️</td>
+          <td class="price">1️0️</td>
         </tr>
         <tr>
           <td class="feature">Référencement Google optimisé</td>
