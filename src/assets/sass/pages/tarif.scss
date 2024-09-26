@@ -1,0 +1,153 @@
+.content-tarif {
+  margin: 60px;
+
+  .text {
+    text-align: center;
+    margin-bottom: 60px;
+
+    span {
+      color: #333;
+      font-family: 'League Spartan', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    p {
+      margin-top: 20px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+
+      a {
+        color: #007BFF;
+        text-decoration: underline;
+        transition: color 0.3s ease;
+        &:hover {
+          color: #0056b3;
+        }
+      }
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: scroll;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    th,
+    td {
+      padding: 15px;
+      text-align: center;
+      border: 1px solid #ddd;
+      transition: background-color 0.3s ease;
+    }
+
+    th {
+      background: #333333;
+      color: white;
+      font-size: 1.2rem;
+
+      strong {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      b {
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+
+    td {
+      background-color: #f9f9f9;
+
+      &:nth-child(1) {
+        font-weight: 400;
+        text-align: left;
+        width: 30%;
+      }
+
+      &.unavailable {
+        color: red;
+      }
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #ffffff;
+    }
+
+    tr:hover {
+      background-color: rgba(0, 123, 255, 0.2);
+      cursor: pointer;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    margin: 30px; /* Réduire la marge */
+  }
+
+  @media (max-width: 992px) {
+    .text span {
+      font-size: 28px; /* Taille de police réduite pour le titre */
+    }
+
+    table {
+      font-size: 0.9rem; /* Réduire la taille de la police sur les grands écrans */
+    }
+
+    td, th {
+      padding: 10px; /* Réduire le padding sur les grands écrans */
+    }
+  }
+
+  @media (max-width: 768px) {
+    margin: 20px; /* Réduire la marge sur mobile */
+
+    .text span {
+      font-size: 24px; /* Taille de police encore réduite */
+    }
+
+    table {
+      font-size: 0.8rem; /* Réduire la taille de la police sur mobile */
+    }
+
+    th, td {
+      padding: 8px; /* Réduire le padding sur mobile */
+    }
+
+    td:nth-child(1) {
+      font-weight: 600; /* Mettre en valeur la première colonne sur mobile */
+    }
+  }
+
+  @media (max-width: 576px) {
+    margin-right: 0;
+    .text {
+      margin-bottom: 40px; /* Réduire la marge en bas du texte */
+    }
+
+    .scroll{
+      overflow: scroll;
+    }
+
+    table {
+      overflow-x: hidden; /* Permettre le défilement horizontal */
+      width: 100%; /* Assurer une largeur complète */
+      margin-right: 20px;
+    }
+
+    th, td {
+      text-align: left; /* Alignement à gauche */
+    }
+
+    tr {
+      margin-bottom: 10px; /* Espacement entre les lignes */
+      border-bottom: 1px solid #ddd; /* Ligne de séparation */
+    }
+  }
+}

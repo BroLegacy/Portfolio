@@ -9,10 +9,13 @@
               <router-link @click="closeMenu" to="/">ACCUEIL</router-link>
             </li>
             <li>
+              <router-link @click="closeMenu" to="/about">À-PROPOS</router-link>
+            </li>
+            <li>
               <router-link @click="closeMenu" to="/projets">PROJETS</router-link>
             </li>
             <li>
-              <router-link @click="closeMenu" to="/about">À-PROPOS</router-link>
+              <router-link @click="closeMenu" to="/tarifs">TARIFS</router-link>
             </li>
             <li>
               <router-link @click="closeMenu" to="/contact">CONTACT</router-link>

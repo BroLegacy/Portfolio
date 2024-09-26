@@ -8,7 +8,7 @@ export default {
     return {
       subText: this.sub, // Utiliser la prop par défaut
       texts: [
-        "Développeur Web",
+        "Codeur Insatiable",
         "Créateur Passionné",
         "Amateur de Technologies",
         "Explorateur de Nouveaux Outils"
@@ -93,14 +93,14 @@ export default {
       </div>
     </div>
     <div class="parent2">
-      <a class="div1 item">
+      <a class="div1 item" href="https://www.figma.com/proto/iR8KHu7kI3HlIy6njeuzF4/Transivia?page-id=0%3A1&node-id=2-1522&t=lRoQjqoCzaDv2a8q-1" target="_blank">
         <img src="../assets/img/transivia.png">
         <div class="text2">
           <span>Transivia</span>
           <p>Site de société de transport</p>
         </div>
       </a>
-      <a class="div2 item" href="https://github.com/BroLegacy/TarkovToolkit" target="_blank">
+      <a class="div2 item" href="https://www.figma.com/proto/19dan959ZmLlwGktZrzymZ/Eatly?page-id=0%3A1&node-id=1-310&node-type=frame&viewport=155%2C722%2C0.47&t=91lXTWeS7gUTnKv6-1&scaling=min-zoom&content-scaling=fixed" target="_blank">
         <img src="../assets/img/eatly.png">
         <div class="text2">
           <span>Eatly</span>

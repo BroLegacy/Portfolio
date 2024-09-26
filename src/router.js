@@ -3,6 +3,7 @@ import Home from './components/Home.vue'
 import Projets from './components/Projets.vue'
 import About from './components/About.vue'
 import Contact from './components/Contact.vue'
+import Tarif from "./components/Tarif.vue";
 
 
 const routes = [
@@ -40,6 +41,15 @@ const routes = [
         props: {
             title: 'contactez-moi',
             sub: 'SAY HELLO TO ME'
+        }
+    },
+    {
+        path: '/tarifs',
+        name: 'Tarif',
+        component: Tarif,
+        props: {
+            title: 'tarifs',
+            sub: 'SIMPLE, CLAIR, EFFICACE'
         }
     },
 ];
