@@ -37,7 +37,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      a{
+      button{
+        border: none;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -58,6 +59,11 @@
     .imp{
       display: flex;
       flex-direction: column;
+      .error {
+        color: red;
+        font-size: 12px;
+        margin-top: 5px;
+      }
       span{
         font-family: League Spartan;
         font-size: 16px;
@@ -65,11 +71,16 @@
         font-weight: 700;
         line-height: normal;
       }
-      input{
+      input, textarea{
         margin-top: 28px;
         border: none;
         border-bottom: solid 2px black;
         outline: none;
+        font-family: Roboto;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
         &::placeholder{
           color: #7E7E7E;
           font-family: Roboto;
