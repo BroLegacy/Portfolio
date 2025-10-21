@@ -1,31 +1,22 @@
 <template>
+  <!-- Le système de menu plein écran reste inchangé -->
   <div class="all" :class="{ show: !showAll }">
     <div class="menu">
       <div class="left">
         <img src="../assets/img/menu.svg" alt="icon menu">
         <nav>
           <ul>
-            <li>
-              <router-link @click="closeMenu" to="/">ACCUEIL</router-link>
-            </li>
-            <li>
-              <router-link @click="closeMenu" to="/about">À-PROPOS</router-link>
-            </li>
-            <li>
-              <router-link @click="closeMenu" to="/projets">PROJETS</router-link>
-            </li>
-            <li>
-              <router-link @click="closeMenu" to="/tarifs">TARIFS</router-link>
-            </li>
-            <li>
-              <router-link @click="closeMenu" to="/contact">CONTACT</router-link>
-            </li>
+            <li><router-link @click="closeMenu" to="/">ACCUEIL</router-link></li>
+            <li><router-link @click="closeMenu" to="/about">À-PROPOS</router-link></li>
+            <li><router-link @click="closeMenu" to="/projets">PROJETS</router-link></li>
+            <li><router-link @click="closeMenu" to="/tarifs">TARIFS</router-link></li>
+            <li><router-link @click="closeMenu" to="/contact">CONTACT</router-link></li>
           </ul>
         </nav>
       </div>
       <div class="right">
         <ul>
-          <li>contact@corantyn.com</li>
+          <li>contact.feid@gmail.com</li>
           <li>06 04 51 01 13</li>
           <li>
             <div class="social">
@@ -58,8 +49,56 @@
     <span></span>
     <span></span>
   </label>
-  <footer>
-    <span>© 2024 Feid</span>
+
+  <!-- FOOTER AMÉLIORÉ -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <!-- Colonne Logo et Slogan -->
+      <div class="footer-column about">
+        <img src="/logo.svg" alt="Logo Corantyn" class="footer-logo">
+        <p>Développeur web passionné, transformant les idées en expériences digitales interactives.</p>
+      </div>
+      <!-- Colonne Navigation -->
+      <div class="footer-column">
+        <h4 class="footer-title">Navigation</h4>
+        <nav class="footer-nav">
+          <router-link to="/">Accueil</router-link>
+          <router-link to="/about">À-propos</router-link>
+          <router-link to="/projets">Projets</router-link>
+          <router-link to="/tarifs">Tarifs</router-link>
+          <router-link to="/contact">Contact</router-link>
+        </nav>
+      </div>
+      <!-- Colonne Contact -->
+      <div class="footer-column">
+        <h4 class="footer-title">Contact</h4>
+        <div class="contact-details">
+          <a href="mailto:contact.feid@gmail.com">contact.feid@gmail.com</a>
+          <a href="tel:+33604510113">06 04 51 01 13</a>
+        </div>
+      </div>
+      <!-- Colonne Réseaux -->
+      <div class="footer-column">
+        <h4 class="footer-title">Réseaux</h4>
+        <div class="social-links-footer">
+          <a href="https://www.instagram.com/corantyn.vnsl/" target="_blank" rel="noopener noreferrer" title="Instagram">
+            <!-- SVG Instagram -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="https://github.com/BroLegacy" target="_blank" rel="noopener noreferrer" title="GitHub">
+            <!-- SVG GitHub -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/corantyn-vignon/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+            <!-- SVG LinkedIn -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© {{ new Date().getFullYear() }} Corantyn Vignon. Tous droits réservés.</span>
+    </div>
   </footer>
 </template>
 
@@ -69,12 +108,269 @@ import { ref, watch } from 'vue';
 const showAll = ref(false);
 
 watch(showAll, (newValue) => {
-  const bodyOverflow = newValue ? 'hidden' : 'auto';
-  document.body.style.overflow = bodyOverflow;
+  document.body.style.overflow = newValue ? 'hidden' : 'auto';
 });
 
-// Ajoute cette fonction pour fermer le menu lorsque vous cliquez sur un lien
 const closeMenu = () => {
   showAll.value = false;
 }
 </script>
+
+<style lang="scss">
+// --- STYLES DU MENU (INCHANGÉS) ---
+.all {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: transform 1s ease-in-out;
+  z-index: 1000;
+
+  &.show {
+    transform: translate(100vw, -100vh);
+  }
+
+  .menu {
+    display: flex;
+    width: 100vw;
+    max-width: 900px;
+    justify-content: space-evenly;
+
+    .left {
+      display: flex;
+      align-items: flex-start;
+      gap: 30px;
+
+      nav ul {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        a {
+          font-family: 'League Spartan', sans-serif;
+          font-size: 64px;
+          font-weight: 700;
+          color: black;
+          text-decoration: none;
+        }
+      }
+    }
+
+    .right {
+      display: flex;
+      justify-content: end;
+      align-items: end;
+
+      ul {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        li {
+          font-family: 'League Spartan', sans-serif;
+          font-size: 24px;
+          font-weight: 600;
+
+          .social {
+            display: flex;
+            gap: 20px;
+            justify-content: start;
+          }
+        }
+      }
+    }
+  }
+}
+
+label {
+  transform: rotate(180deg);
+  display: flex;
+  flex-direction: column;
+  width: 36px;
+  cursor: pointer;
+  position: absolute;
+  top: 5vh;
+  left: 93vw;
+  z-index: 1001;
+
+  span {
+    background: #fff;
+    border-radius: 10px;
+    height: 3px;
+    margin: 4px 0;
+    transition: .4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+
+    &:nth-of-type(1) { width: 50%; }
+    &:nth-of-type(2) { width: 100%; }
+    &:nth-of-type(3) { width: 75%; }
+  }
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  input[type="checkbox"]:checked ~ span {
+    background: #000;
+    &:nth-of-type(1) {
+      transform-origin: bottom;
+      transform: rotatez(45deg) translate(5px, 0px);
+    }
+    &:nth-of-type(2) {
+      transform-origin: top;
+      transform: rotatez(-45deg);
+    }
+    &:nth-of-type(3) {
+      transform-origin: bottom;
+      width: 50%;
+      transform: translate(16px, -6px) rotatez(45deg);
+    }
+  }
+}
+
+// --- NOUVEAUX STYLES POUR LE FOOTER ---
+$footer-bg: #111111;
+$footer-text: #a0a0a0;
+$footer-title: #ffffff;
+$footer-hover: #ffffff;
+
+.site-footer {
+  background-color: $footer-bg;
+  color: $footer-text;
+  padding: 80px 40px 30px 40px;
+  font-family: 'League Spartan', sans-serif;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr); // Colonne logo plus large
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto 50px auto;
+  padding-bottom: 50px;
+  border-bottom: 1px solid #333;
+  .about{
+    display: flex
+  ;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.footer-column {
+  &.about {
+    .footer-logo {
+      height: 60px; // Logo plus grand
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 300px;
+    }
+  }
+
+  .footer-title {
+    font-family: 'League Gothic', sans-serif;
+    font-size: 22px;
+    color: $footer-title;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .footer-nav, .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  a {
+    color: $footer-text;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+    &:hover {
+      color: $footer-hover;
+    }
+  }
+
+  .social-links-footer {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    a {
+      color: $footer-text;
+      &:hover {
+        color: $footer-hover;
+      }
+      svg {
+        width: 26px; // Icônes plus grandes
+        height: 26px;
+      }
+    }
+  }
+}
+
+.footer-bottom {
+  text-align: center;
+  font-size: 14px;
+  padding-top: 30px;
+  color: #777;
+}
+
+// --- RESPONSIVE ---
+@media (max-width: 992px) {
+  .footer-content {
+    grid-template-columns: 1fr 1fr; // Passage à 2 colonnes sur tablette
+    gap: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 60px 20px 20px 20px;
+  }
+  .footer-content {
+    grid-template-columns: 1fr; // 1 colonne sur mobile
+    text-align: center;
+    gap: 40px;
+  }
+  .footer-column {
+    &.about {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      p {
+        max-width: 100%;
+      }
+    }
+    .footer-title {
+      margin-bottom: 15px;
+    }
+    .social-links-footer {
+      justify-content: center;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  label {
+    left: auto;
+    right: 20px;
+    top: 20px;
+  }
+  .all .menu {
+    flex-direction: column;
+    width: fit-content;
+    gap: 90px;
+    .right {
+      justify-content: start;
+    }
+  }
+}
+</style>

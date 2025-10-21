@@ -1,133 +1,493 @@
-<script>
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
 import ParticlesBackground from "./ParticlesBackground.vue";
 
-export default {
-  components: {ParticlesBackground},
-  props: ['title', 'sub'],
-  data() {
-    return {
-      subText: this.sub, // Utiliser la prop par défaut
-      texts: [
-        "Codeur Insatiable",
-        "Créateur Passionné",
-        "Amateur de Technologies",
-        "Explorateur de Nouveaux Outils"
-      ]
-    };
-  },
-  mounted() {
-    this.startTextChange();
-  },
-  methods: {
-    startTextChange() {
-      setInterval(() => {
-        this.changeText();
-      }, 3000); // Change de texte toutes les 3 secondes
-    },
-    changeText() {
-      const randomIndex = Math.floor(Math.random() * this.texts.length);
-      this.subText = this.texts[randomIndex];
-    }
+// --- Props ---
+defineProps(['title', 'sub']);
+
+// --- Animation du sous-titre ---
+const subText = ref("Développeur Web");
+const texts = [
+  "Codeur Insatiable",
+  "Créateur Passionné",
+  "Amateur de Technologies",
+  "Explorateur du Web"
+];
+let textIndex = 0;
+let intervalId;
+
+const changeText = () => {
+  const h2 = document.querySelector('.animated-h2');
+  if (h2) {
+    h2.style.opacity = 0;
+    setTimeout(() => {
+      textIndex = (textIndex + 1) % texts.length;
+      subText.value = texts[textIndex];
+      h2.style.opacity = 1;
+    }, 500); // Temps pour le fade-out
   }
 };
+
+// --- Animations au défilement ---
+let observer;
+
+onMounted(() => {
+  // Démarrer l'animation du texte
+  intervalId = setInterval(changeText, 3000);
+
+  // Configurer l'Intersection Observer pour les animations au scroll
+  observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1, // L'animation se déclenche quand 10% de l'élément est visible
+      }
+  );
+
+  // Observer tous les éléments avec la classe 'animate-on-scroll'
+  document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+    observer.observe(el);
+  });
+});
+
+onUnmounted(() => {
+  // Nettoyer l'intervalle et l'observer pour éviter les fuites de mémoire
+  clearInterval(intervalId);
+  if (observer) {
+    observer.disconnect();
+  }
+});
 </script>
 
 <template>
+  <!-- SECTION HERO -->
   <div class="top">
-    <particles-background/>
+    <particles-background />
     <div class="title">
       <h1>{{ title }}</h1>
       <h2 class="animated-h2">{{ subText }}</h2>
     </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="line"></div>
+    </div>
   </div>
+
   <main class="content-home">
-    <div class="text">
-      <div class="propos">
-        <span>À-propos</span>
-        <p>Je suis Corantyn, un créateur passionné qui évolue dans l'univers fascinant du développement. Mon parcours professionnel est une histoire tissée de lignes de code, de défis stimulants et d'une quête perpétuelle de connaissances. Ma curiosité insatiable m'a conduit à explorer les méandres des nouvelles technologies, à repousser les limites de la créativité et à embrasser chaque opportunité d'apprentissage.</p>
+    <!-- SECTION À PROPOS -->
+    <section class="about-section animate-on-scroll">
+      <div class="about-image">
+        <img src="/pdp.jpg" alt="Photo de Corantyn">
       </div>
-      <div class="comp">
-        <span>Mes Compétences</span>
-        <div class="parent">
-          <div class="div1 item">
-            <img src="../assets/img/html.svg">
-            <span>HTML</span>
+      <div class="about-text">
+        <span class="section-subtitle">À propos</span>
+        <h3 class="section-title">Un créateur passionné par le digital.</h3>
+        <p>
+          Je suis Corantyn, un développeur web qui évolue dans l'univers fascinant du digital. Mon parcours est une histoire tissée de lignes de code, de défis stimulants et d'une quête perpétuelle de connaissances pour transformer des idées en expériences interactives.
+        </p>
+        <p>
+          Ma curiosité insatiable me pousse à explorer les nouvelles technologies, à repousser les limites de la créativité et à embrasser chaque opportunité d'apprentissage.
+        </p>
+      </div>
+    </section>
+
+    <!-- SECTION COMPÉTENCES -->
+    <section class="skills-section animate-on-scroll">
+      <span class="section-subtitle">Compétences</span>
+      <h3 class="section-title">Ma boîte à outils de développeur.</h3>
+      <div class="skills-grid">
+        <!-- Catégorie Frontend -->
+        <div class="skill-card">
+          <h4 class="skill-category">Frontend</h4>
+          <div class="skill-list">
+            <div class="skill-item"><img src="../assets/img/html.svg" alt="HTML5"><span>HTML5</span></div>
+            <div class="skill-item"><img src="../assets/img/css.svg" alt="CSS3"><span>CSS3 & Sass</span></div>
+            <div class="skill-item"><img src="../assets/img/js.svg" alt="JavaScript"><span>JavaScript</span></div>
+            <div class="skill-item"><img src="../assets/img/vue.svg" alt="Vue.js"><span>Vue.js</span></div>
+            <div class="skill-item"><img src="../assets/img/react.svg" alt="React"><span>React</span></div>
           </div>
-          <div class="div2 item">
-            <img src="../assets/img/css.svg">
-            <span>CSS</span>
+        </div>
+        <!-- Catégorie Backend -->
+        <div class="skill-card">
+          <h4 class="skill-category">Backend</h4>
+          <div class="skill-list">
+            <div class="skill-item"><img src="../assets/img/nodejs.svg" alt="Node.js"><span>Node.js</span></div>
+            <div class="skill-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path fill="#8892BF" d="M128 0C98.3 0 72.33 11.53 53.53 30.33c-18.8 18.8-30.33 44.77-30.33 74.47h104.8V0zm0 256c29.7 0 55.67-11.53 74.47-30.33 18.8-18.8 30.33-44.77 30.33-74.47H128v104.8zM23.2 128c0-29.7 11.53-55.67 30.33-74.47C72.33 34.73 98.3 23.2 128 23.2v104.8H23.2zm209.6 0c0 29.7-11.53 55.67-30.33 74.47-18.8 18.8-44.77 30.33-74.47 30.33V128h104.8z"></path></svg>
+              <span>PHP</span>
+            </div>
+            <div class="skill-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#00758F" d="M12.012 23.988c-6.625 0-11.99-5.365-11.99-11.99S5.387.008 12.012.008c6.626 0 11.99 5.365 11.99 11.99s-5.364 11.99-11.99 11.99M8.72 6.988h2.03v8.91h-2.03zM14.72 15.898h-2.03v-4.455c0-.99-.446-1.485-1.336-1.485c-.89 0-1.336.495-1.336 1.485v4.455H7.99v-4.95c0-1.336.742-2.326 2.227-2.326c.99 0 1.634.396 2.03 1.188v.99h.05v-2.03h2.03v7.128h-.604z"></path></svg>
+              <span>SQL</span>
+            </div>
           </div>
-          <div class="div3 item">
-            <img src="../assets/img/js.svg">
-            <span>JavaScript</span>
-          </div>
-          <div class="div4 item">
-            <img src="../assets/img/react.svg">
-            <span>ReactJS</span>
-          </div>
-          <div class="div5 item">
-            <img src="../assets/img/nodejs.svg">
-            <span>NodeJS</span>
-          </div>
-          <div class="div6 item">
-            <img src="../assets/img/figma.svg">
-            <span>Figma</span>
-          </div>
-          <div class="div7 item">
-            <img src="../assets/img/vue.svg">
-            <span>Vue.js</span>
-          </div>
-          <div class="div8 item">
-            <img src="../assets/img/phpstorm.svg">
-            <span>PhpStorm</span>
-          </div>
-          <div class="div9 item">
-            <img src="../assets/img/git.svg">
-            <span>Git</span>
-          </div>
-          <div class="div10 item">
-            <img src="../assets/img/npm.svg">
-            <span>NPM</span>
+        </div>
+        <!-- Catégorie Outils -->
+        <div class="skill-card">
+          <h4 class="skill-category">Outils & Design</h4>
+          <div class="skill-list">
+            <div class="skill-item"><img src="../assets/img/git.svg" alt="Git"><span>Git</span></div>
+            <div class="skill-item"><img src="../assets/img/npm.svg" alt="NPM"><span>NPM</span></div>
+            <div class="skill-item"><img src="../assets/img/phpstorm.svg" alt="PhpStorm"><span>PhpStorm</span></div>
+            <div class="skill-item"><img src="../assets/img/figma.svg" alt="Figma"><span>Figma</span></div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="parent2">
-      <a class="div1 item" href="https://www.figma.com/proto/iR8KHu7kI3HlIy6njeuzF4/Transivia?page-id=0%3A1&node-id=2-1522&t=lRoQjqoCzaDv2a8q-1" target="_blank">
-        <img src="../assets/img/transivia.png">
-        <div class="text2">
-          <span>Transivia</span>
-          <p>Site de société de transport</p>
-        </div>
-      </a>
-      <a class="div2 item" href="https://www.figma.com/proto/19dan959ZmLlwGktZrzymZ/Eatly?page-id=0%3A1&node-id=1-310&node-type=frame&viewport=155%2C722%2C0.47&t=91lXTWeS7gUTnKv6-1&scaling=min-zoom&content-scaling=fixed" target="_blank">
-        <img src="../assets/img/eatly.png">
-        <div class="text2">
-          <span>Eatly</span>
-          <p>Une application de recette de cuisine</p>
-        </div>
-      </a>
-      <a class="div3 item" href="https://github.com/BroLegacy/framwork" target="_blank">
-        <img src="../assets/img/framework.png">
-        <div class="text2">
-          <span>Framework</span>
-          <p>Un simple framwork php</p>
-        </div>
-      </a>
-    </div>
-    <div class="btn">
-      <router-link to="/projets">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M13.4697 8.53033C13.1768 8.23744 13.1768 7.76256 13.4697 7.46967C13.7626 7.17678 14.2374 7.17678 14.5303 7.46967L18.5303 11.4697C18.8232 11.7626 18.8232 12.2374 18.5303 12.5303L14.5303 16.5303C14.2374 16.8232 13.7626 16.8232 13.4697 16.5303C13.1768 16.2374 13.1768 15.7626 13.4697 15.4697L16.1893 12.75H6.5C6.08579 12.75 5.75 12.4142 5.75 12C5.75 11.5858 6.08579 11.25 6.5 11.25H16.1893L13.4697 8.53033Z" fill="white"/>
-        </svg>
-        Mes projets
-      </router-link>
-      <router-link to="/contact">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M13.4697 8.53033C13.1768 8.23744 13.1768 7.76256 13.4697 7.46967C13.7626 7.17678 14.2374 7.17678 14.5303 7.46967L18.5303 11.4697C18.8232 11.7626 18.8232 12.2374 18.5303 12.5303L14.5303 16.5303C14.2374 16.8232 13.7626 16.8232 13.4697 16.5303C13.1768 16.2374 13.1768 15.7626 13.4697 15.4697L16.1893 12.75H6.5C6.08579 12.75 5.75 12.4142 5.75 12C5.75 11.5858 6.08579 11.25 6.5 11.25H16.1893L13.4697 8.53033Z" fill="white"/>
-        </svg>
-        Contactez-moi
-      </router-link>
-    </div>
+    </section>
+
+    <!-- SECTION PROJETS -->
+    <section class="projects-section animate-on-scroll">
+      <span class="section-subtitle">Portfolio</span>
+      <h3 class="section-title">Quelques-uns de mes projets.</h3>
+      <div class="projects-grid">
+        <a class="project-card" href="https://sweet-paletas-024f85.netlify.app/" target="_blank">
+          <img src="/tfc.png" alt="Projet TFC">
+          <div class="project-info">
+            <h4>Task Force Cerberus</h4>
+            <p>Site complet pour une association d'airsoft, avec gestion des parties, inscriptions en ligne et panel d'administration.</p>
+            <span class="project-link">Voir le projet &rarr;</span>
+          </div>
+        </a>
+      </div>
+      <div class="btn-container">
+        <router-link to="/projets" class="btn-main">
+          Tous mes projets
+        </router-link>
+      </div>
+    </section>
+
+    <!-- SECTION CALL TO ACTION -->
+    <section class="cta-section animate-on-scroll">
+      <div class="cta-content">
+        <h3>Intéressé par mon profil ?</h3>
+        <p>Je suis toujours ouvert à de nouvelles opportunités et collaborations. N'hésitez pas à me contacter pour discuter de votre projet.</p>
+        <router-link to="/contact" class="btn-main">
+          Contactez-moi
+        </router-link>
+      </div>
+    </section>
   </main>
 </template>
+
+<style scoped lang="scss">
+// --- VARIABLES DE COULEUR ---
+$primary-color: #000000;
+$secondary-color: #FFFFFF;
+$accent-color: #4A90E2; // Un bleu pour contraster
+$text-color: #333;
+$light-gray: #f8f9fa;
+
+// --- STYLES GÉNÉRAUX ---
+.content-home {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-subtitle {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: $accent-color;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-family: 'League Gothic', sans-serif;
+  // Typographie fluide pour un meilleur responsive
+  font-size: clamp(2.5rem, 6vw, 3rem); // min, idéal, max
+  color: $primary-color;
+  margin-bottom: 40px;
+  line-height: 1.2;
+}
+
+.btn-main {
+  display: inline-block;
+  background-color: $primary-color;
+  color: $secondary-color;
+  padding: 15px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background-color: lighten($primary-color, 15%);
+    transform: translateY(-3px);
+  }
+}
+
+// --- ANIMATIONS AU SCROLL ---
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// --- SECTION HERO (.top) ---
+.top {
+  /*
+    Les styles pour .title, h1 et h2 sont gérés par les styles par défaut
+    du navigateur ou les styles globaux, car il n'y a plus de clamp() ici.
+    Vous pouvez ajouter des tailles fixes si nécessaire, comme ci-dessous.
+  */
+  .title {
+    h1 {
+      // font-size: 72px; /* Exemple de taille fixe */
+    }
+    h2 {
+      // font-size: 48px; /* Exemple de taille fixe */
+    }
+  }
+
+  .animated-h2 {
+    transition: opacity 0.5s ease-in-out;
+  }
+  .scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: $secondary-color;
+    font-family: 'League Spartan', sans-serif;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    opacity: 0.7;
+
+    .line {
+      width: 1px;
+      height: 40px;
+      background: $secondary-color;
+      margin-top: 8px;
+      animation: scroll-down 2s infinite;
+    }
+  }
+}
+
+@keyframes scroll-down {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+// --- SECTIONS DE CONTENU ---
+.about-section, .skills-section, .projects-section {
+  padding: 100px 0;
+}
+
+// --- SECTION À PROPOS ---
+.about-section {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 60px;
+  align-items: center;
+
+  .about-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  .about-text p {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 18px;
+    line-height: 1.8;
+    color: $text-color;
+    margin-bottom: 20px;
+  }
+}
+
+// --- SECTION COMPÉTENCES ---
+.skills-section {
+  text-align: center;
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
+  }
+
+  .skill-card {
+    background: $secondary-color;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    }
+  }
+
+  .skill-category {
+    font-family: 'League Gothic', sans-serif;
+    font-size: 28px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid $accent-color;
+    padding-bottom: 10px;
+    display: inline-block;
+  }
+
+  .skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+
+    img, svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+// --- SECTION PROJETS ---
+.projects-section {
+  text-align: center;
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
+  }
+
+  .project-card {
+    background: $secondary-color;
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    color: $text-color;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .project-info {
+      padding: 25px;
+      text-align: left;
+    }
+
+    h4 {
+      font-family: 'League Gothic', sans-serif;
+      font-size: 28px;
+      margin: 0 0 10px 0;
+    }
+
+    p {
+      font-family: 'League Spartan', sans-serif;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .project-link {
+      font-family: 'League Spartan', sans-serif;
+      font-weight: 700;
+      color: $accent-color;
+      transition: color 0.3s ease;
+    }
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      img {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .btn-container {
+    margin-top: 60px;
+  }
+}
+
+// --- SECTION CTA ---
+.cta-section {
+  background: $light-gray;
+  border-radius: 15px;
+  padding: 80px 40px;
+  text-align: center;
+  margin: 100px 0;
+
+  h3 {
+    font-family: 'League Gothic', sans-serif;
+    font-size: clamp(2rem, 5vw, 2.625rem);
+    color: $primary-color;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 18px;
+    color: $text-color;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+  }
+}
+
+// --- RESPONSIVE ---
+@media (max-width: 992px) {
+  .about-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+    .about-image {
+      max-width: 300px;
+      margin: 0 auto 40px auto;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .content-home {
+    padding: 0 15px;
+  }
+
+  .about-section, .skills-section, .projects-section {
+    padding: 80px 0;
+  }
+
+  .cta-section {
+    padding: 60px 20px;
+    margin: 80px 0;
+  }
+
+  .about-text p, .skill-item span, .project-card p {
+    font-size: 16px;
+  }
+}
+</style>

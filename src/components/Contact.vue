@@ -1,4 +1,117 @@
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
+import ParticlesBackground from "./ParticlesBackground.vue";
+import emailjs from 'emailjs-com';
+
+// --- Props ---
+defineProps(['title', 'sub']);
+
+// --- State du formulaire ---
+const form = ref({
+  name: '',
+  email: '',
+  message: ''
+});
+const errors = ref({});
+const isLoading = ref(false);
+const notification = ref({
+  show: false,
+  message: '',
+  type: '' // 'success' or 'error'
+});
+
+// --- Validation ---
+const validateForm = () => {
+  errors.value = {};
+  let isValid = true;
+
+  if (!form.value.name) {
+    errors.value.name = 'Le nom est obligatoire.';
+    isValid = false;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!form.value.email) {
+    errors.value.email = "L'email est obligatoire.";
+    isValid = false;
+  } else if (!emailRegex.test(form.value.email)) {
+    errors.value.email = "L'email n'est pas valide.";
+    isValid = false;
+  }
+
+  if (!form.value.message) {
+    errors.value.message = 'Le message est obligatoire.';
+    isValid = false;
+  }
+  return isValid;
+};
+
+// --- Affichage des notifications ---
+const showNotification = (message, type) => {
+  notification.value = { show: true, message, type };
+  setTimeout(() => {
+    notification.value.show = false;
+  }, 5000); // La notification disparaît après 5 secondes
+};
+
+// --- Envoi de l'email ---
+const sendEmail = () => {
+  if (!validateForm() || isLoading.value) return;
+
+  isLoading.value = true;
+
+  const templateParams = {
+    from_name: form.value.name,
+    from_email: form.value.email,
+    message: form.value.message
+  };
+
+  emailjs.send(
+      'service_havmreo',      // Votre Service ID
+      'template_pxswsa8',     // Votre Template ID
+      templateParams,
+      'qLgKAfN5Y8AIGPLlv'      // Votre Public Key (User ID)
+  )
+      .then(() => {
+        showNotification('Message envoyé avec succès ! Je vous répondrai bientôt.', 'success');
+        form.value = { name: '', email: '', message: '' }; // Reset form
+      })
+      .catch((error) => {
+        showNotification("Une erreur est survenue. Veuillez réessayer.", 'error');
+        console.error("EmailJS Error:", error);
+      })
+      .finally(() => {
+        isLoading.value = false;
+      });
+};
+
+
+// --- Animations au défilement ---
+let observer;
+onMounted(() => {
+  observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 }
+  );
+
+  document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+    observer.observe(el);
+  });
+});
+
+onUnmounted(() => {
+  if (observer) observer.disconnect();
+});
+</script>
+
 <template>
+  <!-- SECTION HERO -->
   <div class="top">
     <particles-background/>
     <div class="title">
@@ -6,128 +119,360 @@
       <h2>{{ sub }}</h2>
     </div>
   </div>
+
   <main class="content-contact">
-    <div class="parent">
-      <div class="div1">
-        <h3>Contactez-moi</h3>
+    <div class="contact-layout animate-on-scroll">
+      <!-- Colonne d'information -->
+      <div class="contact-info">
+        <span class="section-subtitle">Discutons</span>
+        <h3 class="section-title">Parlons de votre projet.</h3>
+        <p>
+          Que vous ayez une idée précise ou juste une simple question, n'hésitez pas. Remplissez le formulaire ou utilisez mes coordonnées directes. Je suis toujours ravi de découvrir de nouveaux projets.
+        </p>
+        <ul class="info-list">
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <a href="mailto:contact.feid@gmail.com">contact.feid@gmail.com</a>
+          </li>
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <a href="tel:+33604510113">06 04 51 01 13</a>
+          </li>
+        </ul>
+        <div class="social-links">
+          <a href="https://www.instagram.com/corantyn.vnsl/" target="_blank" rel="noopener noreferrer" title="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="https://github.com/BroLegacy" target="_blank" rel="noopener noreferrer" title="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/corantyn-vignon/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+        </div>
       </div>
-      <div class="div2 imp">
-        <span>Nom</span>
-        <input v-model="name" placeholder="Votre nom">
-        <span v-if="errors.name" class="error">{{ errors.name }}</span>
-      </div>
-      <div class="div3 imp">
-        <span>Email</span>
-        <input v-model="email" placeholder="email@example.com">
-        <span v-if="errors.email" class="error">{{ errors.email }}</span>
-      </div>
-      <div class="div4 imp">
-        <span>Message</span>
-        <textarea v-model="message" placeholder="Bonjour, mon nom est..."></textarea>
-        <span v-if="errors.message" class="error">{{ errors.message }}</span>
-      </div>
-      <div class="div5">
-        <button @click="sendEmail">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M13.4697 8.53033C13.1768 8.23744 13.1768 7.76256 13.4697 7.46967C13.7626 7.17678 14.2374 7.17678 14.5303 7.46967L18.5303 11.4697C18.8232 11.7626 18.8232 12.2374 18.5303 12.5303L14.5303 16.5303C14.2374 16.8232 13.7626 16.8232 13.4697 16.5303C13.1768 16.2374 13.1768 15.7626 13.4697 15.4697L16.1893 12.75H6.5C6.08579 12.75 5.75 12.4142 5.75 12C5.75 11.5858 6.08579 11.25 6.5 11.25H16.1893L13.4697 8.53033Z" fill="white"/>
-          </svg>
-          Envoyer
-        </button>
+
+      <!-- Colonne du formulaire -->
+      <div class="contact-form">
+        <form @submit.prevent="sendEmail" novalidate>
+          <div class="form-group">
+            <input type="text" id="name" v-model.trim="form.name" placeholder=" " required>
+            <label for="name">Nom</label>
+            <span v-if="errors.name" class="error-message">{{ errors.name }}</span>
+          </div>
+          <div class="form-group">
+            <input type="email" id="email" v-model.trim="form.email" placeholder=" " required>
+            <label for="email">Email</label>
+            <span v-if="errors.email" class="error-message">{{ errors.email }}</span>
+          </div>
+          <div class="form-group">
+            <textarea id="message" v-model.trim="form.message" rows="5" placeholder=" " required></textarea>
+            <label for="message">Votre message</label>
+            <span v-if="errors.message" class="error-message">{{ errors.message }}</span>
+          </div>
+          <button type="submit" class="btn-main" :disabled="isLoading">
+            <span v-if="!isLoading">Envoyer le message</span>
+            <span v-else class="loader"></span>
+          </button>
+        </form>
       </div>
     </div>
   </main>
+
+  <!-- Notification Toast -->
+  <transition name="toast-fade">
+    <div v-if="notification.show" class="notification-toast" :class="notification.type">
+      {{ notification.message }}
+    </div>
+  </transition>
 </template>
 
-<script>
-import ParticlesBackground from "./ParticlesBackground.vue";
-import emailjs from 'emailjs-com';
+<style scoped lang="scss">
+// --- VARIABLES ---
+$primary-color: #000000;
+$secondary-color: #FFFFFF;
+$accent-color: #4A90E2;
+$text-color: #333;
+$light-gray: #f8f9fa;
+$border-color: #e0e0e0;
+$success-color: #28a745;
+$error-color: #dc3545;
 
-export default {
-  components: {ParticlesBackground},
-  props: ['title', 'sub'],
-  data() {
-    return {
-      name: '',
-      email: '',
-      message: '',
-      errors: {
-        name: '',
-        email: '',
-        message: ''
+// --- STYLES GÉNÉRAUX ---
+.content-contact {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 100px 20px;
+}
+
+.section-subtitle {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: $accent-color;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-family: 'League Gothic', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 3rem);
+  color: $primary-color;
+  margin-bottom: 30px;
+  line-height: 1.2;
+}
+
+.btn-main {
+  display: inline-block;
+  background-color: $primary-color;
+  color: $secondary-color;
+  padding: 15px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  min-height: 52px; // Hauteur fixe pour le bouton
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover:not(:disabled) {
+    background-color: lighten($primary-color, 15%);
+    transform: translateY(-3px);
+  }
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+// --- ANIMATIONS ---
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// --- MISE EN PAGE ---
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: flex-start;
+}
+
+// --- COLONNE INFO ---
+.contact-info {
+  p {
+    font-family: 'League Spartan', sans-serif;
+    font-size: 18px;
+    line-height: 1.8;
+    color: $text-color;
+    margin-bottom: 30px;
+  }
+
+  .info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px 0;
+    li {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      font-family: 'League Spartan', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+
+      svg {
+        width: 24px;
+        height: 24px;
+        color: $accent-color;
+        flex-shrink: 0;
       }
-    };
-  },
-  methods: {
-    validateForm() {
-      this.errors = {
-        name: '',
-        email: '',
-        message: ''
-      };
-
-      let isValid = true;
-
-      // Validation du nom
-      if (!this.name) {
-        this.errors.name = 'Le nom est obligatoire.';
-        isValid = false;
-      }
-
-      // Validation de l'email
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!this.email) {
-        this.errors.email = 'L\'email est obligatoire.';
-        isValid = false;
-      } else if (!emailRegex.test(this.email)) {
-        this.errors.email = 'L\'email n\'est pas valide.';
-        isValid = false;
-      }
-
-      // Validation du message
-      if (!this.message) {
-        this.errors.message = 'Le message est obligatoire.';
-        isValid = false;
-      }
-
-      return isValid;
-    },
-
-    sendEmail() {
-      if (this.validateForm()) {
-        const templateParams = {
-          from_name: this.name,
-          from_email: this.email,
-          message: this.message
-        };
-
-        emailjs.send(
-            'service_havmreo', // Remplacez par votre service ID
-            'template_pxswsa8', // Remplacez par votre modèle d'email ID
-            templateParams,
-            'qLgKAfN5Y8AIGPLlv' // Remplacez par votre utilisateur ID (disponible dans EmailJS)
-        )
-            .then(response => {
-              alert('Email envoyé avec succès !');
-              this.name = '';
-              this.email = '';
-              this.message = '';
-            })
-            .catch(error => {
-              alert('Erreur lors de l\'envoi de l\'email.');
-              console.error(error);
-            });
-      } else {
-        alert('Veuillez corriger les erreurs.');
+      a {
+        color: $text-color;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        &:hover {
+          color: $accent-color;
+        }
       }
     }
   }
-};
-</script>
 
-<style scoped>
-.error {
-  color: red;
-  font-size: 12px;
-  margin-top: 5px;
+  .social-links {
+    display: flex;
+    gap: 20px;
+    a {
+      color: #888;
+      transition: color 0.3s ease, transform 0.3s ease;
+      &:hover {
+        color: $primary-color;
+        transform: translateY(-3px);
+      }
+      svg {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  }
+}
+
+// --- FORMULAIRE ---
+.contact-form {
+  background: $secondary-color;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 35px;
+
+  input, textarea {
+    width: 100%;
+    border: 2px solid $border-color;
+    border-radius: 8px;
+    padding: 14px;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 16px;
+    background: transparent; // Important pour le placeholder
+    transition: border-color 0.3s ease;
+    position: relative;
+    z-index: 1;
+
+    &:focus {
+      outline: none;
+      border-color: $accent-color;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  label {
+    transform: none !important;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-family: 'League Spartan', sans-serif;
+    color: #999;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 0;
+  }
+
+  // CORRECTION : Effet "Floating Label" amélioré
+  input:focus + label,
+  input:not(:placeholder-shown) + label,
+  textarea:focus + label,
+  textarea:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 10px;
+    font-size: 12px;
+    color: $accent-color;
+    background: $secondary-color;
+    padding: 0 5px;
+    z-index: 2;
+  }
+
+  .error-message {
+    color: $error-color;
+    font-family: 'League Spartan', sans-serif;
+    font-size: 13px;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+  }
+}
+
+// --- LOADER ---
+.loader {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: $secondary-color;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// --- NOTIFICATION TOAST ---
+.notification-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 25px;
+  border-radius: 8px;
+  color: $secondary-color;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 600;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  z-index: 1001;
+
+  &.success { background-color: $success-color; }
+  &.error { background-color: $error-color; }
+}
+
+.toast-fade-enter-active, .toast-fade-leave-active {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.toast-fade-enter-from, .toast-fade-leave-to {
+  opacity: 0;
+  transform: translate(-50%, 20px);
+}
+
+// --- RESPONSIVE ---
+@media (max-width: 992px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  .contact-info {
+    text-align: center;
+    .info-list, .social-links {
+      justify-content: center;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .info-list{
+    li{
+      justify-content: center;
+    }
+  }
+  .content-contact {
+    padding: 80px 20px;
+  }
+  .contact-form {
+    padding: 30px;
+  }
+  .section-title {
+    font-size: 2.25rem; // Taille réduite pour mobile
+  }
+  .contact-info p {
+    font-size: 16px; // Taille de police ajustée
+  }
 }
 </style>
