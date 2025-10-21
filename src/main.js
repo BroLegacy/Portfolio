@@ -1,14 +1,18 @@
 import { createApp } from 'vue';
-import '../src/assets/sass/main.scss';
+import { createMetaManager } from 'vue-meta';
 import App from './App.vue';
 import router from './router';
-// Importation correcte pour vue-meta (version Vue 3)
-import { createMetaManager } from 'vue-meta'; // <--- MODIFICATION ICI
+import '../src/assets/sass/main.scss';
 
+// Crée l'application Vue
 const app = createApp(App);
 
+// Utilise le router
 app.use(router);
-app.use(createMetaManager()); // <--- Cette ligne est correcte et suffisante
-// app.use(VueMetaPlugin);       // <--- SUPPRIMEZ CETTE LIGNE
 
+// Utilise le gestionnaire de métadonnées
+// C'est la bonne façon d'initialiser vue-meta pour Vue 3
+app.use(createMetaManager());
+
+// Monte l'application sur l'élément #app dans votre HTML
 app.mount('#app');
