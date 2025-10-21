@@ -8,7 +8,7 @@ import { useMeta } from 'vue-meta'; // <-- Ajout pour vue-meta
 defineProps({
   pageTitle: {
     type: String,
-    default: "Corantyn Vignon"
+    default: "Corantyn"
   },
   pageDescription: {
     type: String,
