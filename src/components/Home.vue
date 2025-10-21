@@ -185,6 +185,14 @@ onUnmounted(() => {
             <span class="project-link">Voir le projet &rarr;</span>
           </div>
         </a>
+        <a class="project-card" href="https://chezlouise.netlify.app/" target="_blank">
+          <img src="/louise.png" alt="Création site web pour association d'airsoft Task Force Cerberus"> <!-- Alt text amélioré -->
+          <div class="project-info">
+            <h4>Chez Louise</h4>
+            <p>Site vitrine pour une boulangerie, avec formulaire de contact.</p>
+            <span class="project-link">Voir le projet &rarr;</span>
+          </div>
+        </a>
       </div>
       <div class="btn-container">
         <router-link to="/projets" class="btn-main">
