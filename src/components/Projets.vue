@@ -1,9 +1,26 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import ParticlesBackground from "./ParticlesBackground.vue";
+import { useMeta } from 'vue-meta'; // <-- Ajout pour vue-meta
 
 // --- Props ---
-defineProps(['title', 'sub']);
+defineProps({
+  pageTitle: {
+    type: String,
+    default: "Mes projets"
+  },
+  pageDescription: {
+    type: String,
+    default: "Découvrez mes réalisations"
+  }
+});
+
+// --- Configuration des meta tags pour cette page ---
+useMeta(() => ({
+  title: props.pageTitle,
+  description: props.pageDescription,
+  // Open Graph et Twitter Cards peuvent être ajoutés ici aussi si vous le souhaitez
+}));
 
 // --- Données des projets ---
 const projects = ref([
@@ -11,11 +28,22 @@ const projects = ref([
     id: 1,
     title: 'Task Force Cerberus',
     category: 'Développement Web',
-    description: 'Site complet pour une association d\'airsoft, avec gestion des parties, inscriptions en ligne et panel d\'administration.',
+    description: 'Site complet pour une association d\'airsoft, avec gestion des parties, inscriptions en ligne et panel d\'administration. Un exemple de <strong>création de site web sur mesure</strong>.',
     imageUrl: '/tfc.png',
     link: 'https://sweet-paletas-024f85.netlify.app/',
     technologies: ['Vue.js', 'Supabase', 'SCSS']
   },
+  // Ajoutez d'autres projets ici avec des descriptions riches en mots-clés
+  // Exemple:
+  // {
+  //   id: 2,
+  //   title: 'Boutique en ligne de produits locaux',
+  //   category: 'E-commerce',
+  //   description: 'Développement d\'une plateforme e-commerce complète pour des producteurs locaux de la région de Chauny, incluant gestion des stocks, paiements sécurisés et interface administrateur. Spécialiste en <strong>site e-commerce Chauny</strong>.',
+  //   imageUrl: '/ecommerce-local.png',
+  //   link: 'https://example.com/boutique-locale',
+  //   technologies: ['Nuxt.js', 'Stripe', 'Node.js', 'MongoDB']
+  // },
 ]);
 
 // --- Animations au défilement ---
@@ -47,8 +75,8 @@ onUnmounted(() => {
   <div class="top">
     <particles-background/>
     <div class="title">
-      <h1>{{ title }}</h1>
-      <h2>{{ sub }}</h2>
+      <h1>{{ pageTitle }}</h1> <!-- Utilisation de pageTitle -->
+      <h2>{{ pageDescription }}</h2>
     </div>
   </div>
 
@@ -65,7 +93,7 @@ onUnmounted(() => {
             rel="noopener noreferrer"
         >
           <div class="project-image">
-            <img :src="project.imageUrl" :alt="`Image du projet ${project.title}`">
+            <img :src="project.imageUrl" :alt="`Image du projet ${project.title} - ${project.category}`"> <!-- Alt text amélioré -->
             <div class="image-overlay"></div>
           </div>
           <div class="project-info">
@@ -88,8 +116,8 @@ onUnmounted(() => {
     <!-- SECTION CALL TO ACTION -->
     <section class="cta-section animate-on-scroll">
       <div class="cta-content">
-        <h3>Une idée ? Un projet ?</h3>
-        <p>Je suis toujours prêt à relever de nouveaux défis. Contactez-moi pour que nous puissions donner vie à votre vision.</p>
+        <h3>Une idée ? Un projet de site web ?</h3>
+        <p>Je suis toujours prêt à relever de nouveaux défis en <strong>développement web</strong>. Contactez-moi pour que nous puissions donner vie à votre vision, que vous soyez à <strong>Chauny, Saint-Quentin, Compiègne</strong> ou ailleurs.</p>
         <router-link to="/contact" class="btn-main">
           Contactez-moi
         </router-link>

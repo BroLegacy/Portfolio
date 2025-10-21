@@ -2,9 +2,63 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import ParticlesBackground from "./ParticlesBackground.vue";
 import emailjs from 'emailjs-com';
+import { useMeta } from 'vue-meta'; // <-- Ajout pour vue-meta
 
 // --- Props ---
-defineProps(['title', 'sub']);
+defineProps({
+  pageTitle: {
+    type: String,
+    default: "Contactez-moi"
+  },
+  pageDescription: {
+    type: String,
+    default: "Devis gratuit"
+  }
+});
+
+// --- Configuration des meta tags et JSON-LD pour cette page ---
+useMeta(() => ({
+  title: props.pageTitle,
+  description: props.pageDescription,
+  // Open Graph et Twitter Cards peuvent être ajoutés ici aussi si vous le souhaitez
+  script: [
+    {
+      type: 'application/ld+json',
+      json: {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness", // Ou "Person" si vous préférez
+        "name": "Corantyn Vignon - Développeur Web Freelance",
+        "image": "URL_DE_VOTRE_LOGO_OU_PHOTO.jpg", // Remplacez par l'URL de votre logo/photo
+        "url": "URL_DE_VOTRE_SITE.com", // Remplacez par l'URL de votre site
+        "telephone": "+33604510113",
+        "email": "contact.feid@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          // "streetAddress": "Votre Rue et Numéro", // Optionnel si vous ne voulez pas la donner
+          "addressLocality": "Chauny", // Ville principale
+          "addressRegion": "Hauts-de-France",
+          // "postalCode": "Votre Code Postal", // Optionnel
+          "addressCountry": "FR"
+        },
+        "areaServed": [ // Très important pour le SEO local sans adresse physique
+          { "@type": "Place", "name": "Chauny" },
+          { "@type": "Place", "name": "Saint-Quentin" },
+          { "@type": "Place", "name": "Compiègne" },
+          { "@type": "Place", "name": "Laon" },
+          { "@type": "Place", "name": "Soissons" },
+          { "@type": "Place", "name": "Aisne" },
+          { "@type": "Place", "name": "Oise" }
+        ],
+        "sameAs": [ // Liens vers vos profils sociaux
+          "https://www.instagram.com/corantyn.vnsl/",
+          "https://github.com/BroLegacy",
+          "https://www.linkedin.com/in/corantyn-vignon/"
+        ],
+        "description": "Développeur web freelance spécialisé en création de sites internet et applications web sur mesure pour les entreprises de Chauny, Saint-Quentin, Compiègne et leurs environs."
+      }
+    }
+  ]
+}));
 
 // --- State du formulaire ---
 const form = ref({
@@ -115,8 +169,8 @@ onUnmounted(() => {
   <div class="top">
     <particles-background/>
     <div class="title">
-      <h1>{{ title }}</h1>
-      <h2>{{ sub }}</h2>
+      <h1>{{ pageTitle }}</h1> <!-- Utilisation de pageTitle -->
+      <h2>{{ pageDescription }}</h2>
     </div>
   </div>
 
@@ -125,9 +179,9 @@ onUnmounted(() => {
       <!-- Colonne d'information -->
       <div class="contact-info">
         <span class="section-subtitle">Discutons</span>
-        <h3 class="section-title">Parlons de votre projet.</h3>
+        <h3 class="section-title">Parlons de votre projet de création de site web.</h3>
         <p>
-          Que vous ayez une idée précise ou juste une simple question, n'hésitez pas. Remplissez le formulaire ou utilisez mes coordonnées directes. Je suis toujours ravi de découvrir de nouveaux projets.
+          Que vous ayez une idée précise ou juste une simple question, n'hésitez pas. Remplissez le formulaire ou utilisez mes coordonnées directes. Je suis toujours ravi de découvrir de nouveaux projets de <strong>création de site web</strong> ou de <strong>développement d'application</strong> dans la région de <strong>Chauny, Saint-Quentin, Compiègne</strong> et l'ensemble de l'<strong>Aisne</strong> et de l'<strong>Oise</strong>.
         </p>
         <ul class="info-list">
           <li>
@@ -140,13 +194,13 @@ onUnmounted(() => {
           </li>
         </ul>
         <div class="social-links">
-          <a href="https://www.instagram.com/corantyn.vnsl/" target="_blank" rel="noopener noreferrer" title="Instagram">
+          <a href="https://www.instagram.com/corantyn.vnsl/" target="_blank" rel="noopener noreferrer" title="Instagram de Corantyn Vignon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
           </a>
-          <a href="https://github.com/BroLegacy" target="_blank" rel="noopener noreferrer" title="GitHub">
+          <a href="https://github.com/BroLegacy" target="_blank" rel="noopener noreferrer" title="Profil GitHub de Corantyn Vignon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
           </a>
-          <a href="https://www.linkedin.com/in/corantyn-vignon/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+          <a href="https://www.linkedin.com/in/corantyn-vignon/" target="_blank" rel="noopener noreferrer" title="Profil LinkedIn de Corantyn Vignon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
           </a>
         </div>

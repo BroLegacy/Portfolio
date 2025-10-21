@@ -1,9 +1,26 @@
 <script setup>
 import { onMounted, onUnmounted } from 'vue';
 import ParticlesBackground from "./ParticlesBackground.vue";
+import { useMeta } from 'vue-meta'; // <-- Ajout pour vue-meta
 
 // --- Props ---
-defineProps(['title', 'sub']);
+defineProps({
+  pageTitle: {
+    type: String,
+    default: "À Propos"
+  },
+  pageDescription: {
+    type: String,
+    default: "Découvrez mon parcours"
+  }
+});
+
+// --- Configuration des meta tags pour cette page ---
+useMeta(() => ({
+  title: props.pageTitle,
+  description: props.pageDescription,
+  // Open Graph et Twitter Cards peuvent être ajoutés ici aussi si vous le souhaitez
+}));
 
 // --- Animations au défilement ---
 let observer;
@@ -43,8 +60,8 @@ onUnmounted(() => {
   <div class="top">
     <particles-background/>
     <div class="title">
-      <h1>{{ title }}</h1>
-      <h2>{{ sub }}</h2>
+      <h1>{{ pageTitle }}</h1> <!-- Utilisation de pageTitle -->
+      <h2>{{ pageDescription }}</h2>
     </div>
   </div>
 
@@ -52,16 +69,16 @@ onUnmounted(() => {
     <!-- SECTION HISTOIRE -->
     <section class="story-section animate-on-scroll">
       <div class="story-image">
-        <img src="/pdp.jpg" alt="Photo de Corantyn Vignon">
+        <img src="/pdp.jpg" alt="Photo de Corantyn Vignon, développeur web freelance"> <!-- Alt text amélioré -->
       </div>
       <div class="story-text">
         <span class="section-subtitle">Mon Histoire</span>
         <h3 class="section-title">De la passion du code à la création d'expériences digitales.</h3>
         <p>
-          Mon parcours est une aventure tissée de lignes de code et d'une curiosité insatiable. Dès mes débuts, j'ai été fasciné par la capacité du développement à transformer une simple idée en une solution fonctionnelle et élégante.
+          Mon parcours est une aventure tissée de lignes de code et d'une curiosité insatiable. Dès mes débuts, j'ai été fasciné par la capacité du développement à transformer une simple idée en une solution fonctionnelle et élégante. En tant que <strong>développeur web freelance</strong>, je m'engage à créer des <strong>sites internet</strong> et des <strong>applications web</strong> qui répondent précisément aux besoins de mes clients.
         </p>
         <p>
-          Chaque projet est pour moi une nouvelle énigme à résoudre, une opportunité d'apprendre et de repousser les limites de la créativité pour construire des interfaces intuitives et performantes.
+          Chaque projet est pour moi une nouvelle énigme à résoudre, une opportunité d'apprendre et de repousser les limites de la créativité pour construire des interfaces intuitives et performantes. Je suis fier d'accompagner les entreprises de <strong>Chauny, Saint-Quentin, Compiègne</strong> et leurs environs dans leur transformation digitale.
         </p>
       </div>
     </section>
@@ -69,7 +86,7 @@ onUnmounted(() => {
     <!-- SECTION TIMELINE PARCOURS -->
     <section class="timeline-section animate-on-scroll">
       <span class="section-subtitle">Mon Parcours</span>
-      <h3 class="section-title">Les étapes clés de mon aventure.</h3>
+      <h3 class="section-title">Les étapes clés de mon aventure de développeur web.</h3>
       <div class="timeline">
         <!-- Item 1 -->
         <div class="timeline-item">
@@ -78,7 +95,7 @@ onUnmounted(() => {
             <span>Webstart, Paris (2023)</span>
           </div>
           <div class="timeline-content">
-            <p>Un cursus intensif qui m'a apporté une double compétence en développement web et mobile, me permettant de concevoir des solutions complètes et multi-plateformes.</p>
+            <p>Un cursus intensif qui m'a apporté une double compétence en <strong>développement web</strong> et mobile, me permettant de concevoir des solutions complètes et multi-plateformes.</p>
           </div>
         </div>
         <!-- Item 2 -->
@@ -88,7 +105,7 @@ onUnmounted(() => {
             <span>Développeur Front-End, Paris (2022 - 2023)</span>
           </div>
           <div class="timeline-content">
-            <p>Une expérience formatrice au cœur d'un acteur majeur de l'e-commerce. J'ai pu y développer des compétences solides en intégration et en création d'interfaces utilisateur réactives.</p>
+            <p>Une expérience formatrice au cœur d'un acteur majeur de l'e-commerce. J'ai pu y développer des compétences solides en intégration et en création d'interfaces utilisateur réactives pour des <strong>sites e-commerce</strong>.</p>
           </div>
         </div>
         <!-- Item 3 -->
@@ -98,7 +115,7 @@ onUnmounted(() => {
             <span>Développeur Freelance (2023 - Présent)</span>
           </div>
           <div class="timeline-content">
-            <p>Je mets aujourd'hui mon expertise au service de mes clients pour les accompagner dans la création de leurs outils digitaux, de la maquette à la mise en production.</p>
+            <p>Je mets aujourd'hui mon expertise au service de mes clients pour les accompagner dans la <strong>création de leurs outils digitaux</strong>, de la maquette à la mise en production, notamment pour la <strong>création de sites web à Chauny, Saint-Quentin, Compiègne</strong>.</p>
           </div>
         </div>
       </div>
@@ -121,14 +138,14 @@ onUnmounted(() => {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
           </div>
           <h4>Technologie</h4>
-          <p>Toujours à l'affût des dernières innovations, de l'IA à la VR, pour comprendre comment elles peuvent résoudre des problèmes complexes.</p>
+          <p>Toujours à l'affût des dernières innovations, de l'IA à la VR, pour comprendre comment elles peuvent résoudre des problèmes complexes et inspirer le <strong>développement web</strong>.</p>
         </div>
         <div class="hobby-card">
           <div class="hobby-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 13-6-6-6 6h12v6h-12v-6Z"/><path d="m18 13-6-6-6 6"/></svg>
           </div>
           <h4>Jeux Vidéo</h4>
-          <p>Un univers qui combine narration, design interactif et défis techniques. Une source d'inspiration inépuisable pour la gamification et l'UX.</p>
+          <p>Un univers qui combine narration, design interactif et défis techniques. Une source d'inspiration inépuisable pour la gamification et l'UX dans la <strong>conception de sites web</strong>.</p>
         </div>
       </div>
     </section>
@@ -136,7 +153,7 @@ onUnmounted(() => {
     <!-- BOUTON CTA -->
     <div class="cta-button-container animate-on-scroll">
       <router-link to="/contact" class="btn-main">
-        Discutons de votre projet
+        Discutons de votre projet de site web
       </router-link>
     </div>
   </main>

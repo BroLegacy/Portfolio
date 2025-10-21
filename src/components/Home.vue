@@ -1,9 +1,40 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import ParticlesBackground from "./ParticlesBackground.vue";
+import { useMeta } from 'vue-meta'; // <-- Ajout pour vue-meta
 
 // --- Props ---
-defineProps(['title', 'sub']);
+// J'ai modifié les props pour qu'elles soient plus descriptives pour le SEO
+defineProps({
+  pageTitle: {
+    type: String,
+    default: "Corantyn Vignon"
+  },
+  pageDescription: {
+    type: String,
+    default: "Création de sites web sur mesure, refonte et développement d'applications web. Expert en Vue.js, React, Node.js. Contactez-moi pour votre projet à Chauny, Saint-Quentin, Compiègne et environs."
+  }
+});
+
+// --- Configuration des meta tags pour cette page ---
+useMeta(() => ({
+  title: props.pageTitle,
+  description: props.pageDescription,
+  og: {
+    title: props.pageTitle,
+    description: props.pageDescription,
+    image: 'URL_DE_VOTRE_IMAGE_DE_PARTAGE.jpg', // Remplacez par l'URL de votre image de partage
+    url: 'URL_DE_VOTRE_SITE.com', // Remplacez par l'URL de votre site
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: props.pageTitle,
+    description: props.pageDescription,
+    image: 'URL_DE_VOTRE_IMAGE_DE_PARTAGE.jpg' // Remplacez par l'URL de votre image de partage
+  }
+}));
+
 
 // --- Animation du sous-titre ---
 const subText = ref("Développeur Web");
@@ -70,7 +101,7 @@ onUnmounted(() => {
   <div class="top">
     <particles-background />
     <div class="title">
-      <h1>{{ title }}</h1>
+      <h1>{{ pageTitle }}</h1> <!-- Utilisation de pageTitle -->
       <h2 class="animated-h2">{{ subText }}</h2>
     </div>
     <div class="scroll-indicator">
@@ -83,16 +114,16 @@ onUnmounted(() => {
     <!-- SECTION À PROPOS -->
     <section class="about-section animate-on-scroll">
       <div class="about-image">
-        <img src="/pdp.jpg" alt="Photo de Corantyn">
+        <img src="/pdp.jpg" alt="Photo de Corantyn Vignon, développeur web freelance"> <!-- Alt text amélioré -->
       </div>
       <div class="about-text">
         <span class="section-subtitle">À propos</span>
         <h3 class="section-title">Un créateur passionné par le digital.</h3>
         <p>
-          Je suis Corantyn, un développeur web qui évolue dans l'univers fascinant du digital. Mon parcours est une histoire tissée de lignes de code, de défis stimulants et d'une quête perpétuelle de connaissances pour transformer des idées en expériences interactives.
+          Je suis Corantyn, un <strong>développeur web freelance</strong> basé près de <strong>Chauny</strong>, intervenant également sur <strong>Saint-Quentin</strong> et <strong>Compiègne</strong>. Mon parcours est une histoire tissée de lignes de code, de défis stimulants et d'une quête perpétuelle de connaissances pour transformer des idées en expériences interactives. Je propose des services de <strong>création de sites web sur mesure</strong>, de <strong>refonte de sites internet</strong> et de développement d'applications web performantes.
         </p>
         <p>
-          Ma curiosité insatiable me pousse à explorer les nouvelles technologies, à repousser les limites de la créativité et à embrasser chaque opportunité d'apprentissage.
+          Ma curiosité insatiable me pousse à explorer les nouvelles technologies, à repousser les limites de la créativité et à embrasser chaque opportunité d'apprentissage pour offrir des solutions digitales innovantes aux entreprises et professionnels de l'<strong>Aisne</strong> et de l'<strong>Oise</strong>.
         </p>
       </div>
     </section>
@@ -106,18 +137,18 @@ onUnmounted(() => {
         <div class="skill-card">
           <h4 class="skill-category">Frontend</h4>
           <div class="skill-list">
-            <div class="skill-item"><img src="../assets/img/html.svg" alt="HTML5"><span>HTML5</span></div>
-            <div class="skill-item"><img src="../assets/img/css.svg" alt="CSS3"><span>CSS3 & Sass</span></div>
-            <div class="skill-item"><img src="../assets/img/js.svg" alt="JavaScript"><span>JavaScript</span></div>
-            <div class="skill-item"><img src="../assets/img/vue.svg" alt="Vue.js"><span>Vue.js</span></div>
-            <div class="skill-item"><img src="../assets/img/react.svg" alt="React"><span>React</span></div>
+            <div class="skill-item"><img src="../assets/img/html.svg" alt="Logo HTML5"><span>HTML5</span></div>
+            <div class="skill-item"><img src="../assets/img/css.svg" alt="Logo CSS3 et Sass"><span>CSS3 & Sass</span></div>
+            <div class="skill-item"><img src="../assets/img/js.svg" alt="Logo JavaScript"><span>JavaScript</span></div>
+            <div class="skill-item"><img src="../assets/img/vue.svg" alt="Logo Vue.js"><span>Vue.js</span></div>
+            <div class="skill-item"><img src="../assets/img/react.svg" alt="Logo React"><span>React</span></div>
           </div>
         </div>
         <!-- Catégorie Backend -->
         <div class="skill-card">
           <h4 class="skill-category">Backend</h4>
           <div class="skill-list">
-            <div class="skill-item"><img src="../assets/img/nodejs.svg" alt="Node.js"><span>Node.js</span></div>
+            <div class="skill-item"><img src="../assets/img/nodejs.svg" alt="Logo Node.js"><span>Node.js</span></div>
             <div class="skill-item">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path fill="#8892BF" d="M128 0C98.3 0 72.33 11.53 53.53 30.33c-18.8 18.8-30.33 44.77-30.33 74.47h104.8V0zm0 256c29.7 0 55.67-11.53 74.47-30.33 18.8-18.8 30.33-44.77 30.33-74.47H128v104.8zM23.2 128c0-29.7 11.53-55.67 30.33-74.47C72.33 34.73 98.3 23.2 128 23.2v104.8H23.2zm209.6 0c0 29.7-11.53 55.67-30.33 74.47-18.8 18.8-44.77 30.33-74.47 30.33V128h104.8z"></path></svg>
               <span>PHP</span>
@@ -132,10 +163,10 @@ onUnmounted(() => {
         <div class="skill-card">
           <h4 class="skill-category">Outils & Design</h4>
           <div class="skill-list">
-            <div class="skill-item"><img src="../assets/img/git.svg" alt="Git"><span>Git</span></div>
-            <div class="skill-item"><img src="../assets/img/npm.svg" alt="NPM"><span>NPM</span></div>
-            <div class="skill-item"><img src="../assets/img/phpstorm.svg" alt="PhpStorm"><span>PhpStorm</span></div>
-            <div class="skill-item"><img src="../assets/img/figma.svg" alt="Figma"><span>Figma</span></div>
+            <div class="skill-item"><img src="../assets/img/git.svg" alt="Logo Git"><span>Git</span></div>
+            <div class="skill-item"><img src="../assets/img/npm.svg" alt="Logo NPM"><span>NPM</span></div>
+            <div class="skill-item"><img src="../assets/img/phpstorm.svg" alt="Logo PhpStorm"><span>PhpStorm</span></div>
+            <div class="skill-item"><img src="../assets/img/figma.svg" alt="Logo Figma"><span>Figma</span></div>
           </div>
         </div>
       </div>
@@ -147,7 +178,7 @@ onUnmounted(() => {
       <h3 class="section-title">Quelques-uns de mes projets.</h3>
       <div class="projects-grid">
         <a class="project-card" href="https://sweet-paletas-024f85.netlify.app/" target="_blank">
-          <img src="/tfc.png" alt="Projet TFC">
+          <img src="/tfc.png" alt="Création site web pour association d'airsoft Task Force Cerberus"> <!-- Alt text amélioré -->
           <div class="project-info">
             <h4>Task Force Cerberus</h4>
             <p>Site complet pour une association d'airsoft, avec gestion des parties, inscriptions en ligne et panel d'administration.</p>
@@ -166,7 +197,7 @@ onUnmounted(() => {
     <section class="cta-section animate-on-scroll">
       <div class="cta-content">
         <h3>Intéressé par mon profil ?</h3>
-        <p>Je suis toujours ouvert à de nouvelles opportunités et collaborations. N'hésitez pas à me contacter pour discuter de votre projet.</p>
+        <p>Je suis toujours ouvert à de nouvelles opportunités et collaborations. N'hésitez pas à me contacter pour discuter de votre projet de <strong>création de site web</strong> ou de <strong>développement d'application</strong> à <strong>Chauny, Saint-Quentin, Compiègne</strong>.</p>
         <router-link to="/contact" class="btn-main">
           Contactez-moi
         </router-link>

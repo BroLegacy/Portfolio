@@ -1,9 +1,43 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import ParticlesBackground from "./ParticlesBackground.vue";
+import { useMeta } from 'vue-meta'; // <-- Ajout pour vue-meta
 
 // --- Props ---
-defineProps(['title', 'sub']);
+defineProps({
+  pageTitle: {
+    type: String,
+    default: "Tarifs"
+  },
+  pageDescription: {
+    type: String,
+    default: "Découvrez mes offres"
+  }
+});
+
+// --- Configuration des meta tags et JSON-LD pour cette page ---
+useMeta(() => ({
+  title: props.pageTitle,
+  description: props.pageDescription,
+  // Open Graph et Twitter Cards peuvent être ajoutés ici aussi si vous le souhaitez
+  script: [
+    {
+      type: 'application/ld+json',
+      json: {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqs.map(faq => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": faq.answer
+          }
+        }))
+      }
+    }
+  ]
+}));
 
 // --- Logique pour la FAQ ---
 const openFaq = ref(null);
@@ -59,8 +93,8 @@ onUnmounted(() => {
   <div class="top">
     <particles-background/>
     <div class="title">
-      <h1>{{ title }}</h1>
-      <h2>{{ sub }}</h2>
+      <h1>{{ pageTitle }}</h1> <!-- Utilisation de pageTitle -->
+      <h2>{{ pageDescription }}</h2>
     </div>
   </div>
 
@@ -70,7 +104,7 @@ onUnmounted(() => {
       <span class="section-subtitle">Mes Offres</span>
       <h3 class="section-title">Des solutions adaptées à chaque projet.</h3>
       <p>
-        Chaque projet est unique. C'est pourquoi je vous propose des offres claires et modulables, conçues pour répondre précisément à vos besoins, que vous soyez un entrepreneur, une PME ou une association.
+        Chaque projet est unique. C'est pourquoi je vous propose des offres claires et modulables, conçues pour répondre précisément à vos besoins, que vous soyez un entrepreneur, une PME ou une association à <strong>Chauny, Saint-Quentin, Compiègne</strong> et leurs environs. Je suis votre <strong>développeur web freelance</strong> pour la <strong>création de votre site internet</strong>.
       </p>
     </section>
 
@@ -82,7 +116,7 @@ onUnmounted(() => {
           <div class="card-header">
             <h4>Single Page</h4>
             <p class="price">dès 500€ <span>HT</span></p>
-            <p class="target">Idéal pour un lancement, un événement ou une présentation concise.</p>
+            <p class="target">Idéal pour un lancement, un événement ou une présentation concise. Parfait pour un <strong>site vitrine simple</strong> ou une <strong>page de présentation</strong>.</p>
           </div>
           <ul class="features-list">
             <li>✔️ 1 page unique et impactante</li>
@@ -100,7 +134,7 @@ onUnmounted(() => {
           <div class="card-header">
             <h4>Site Vitrine</h4>
             <p class="price">dès 900€ <span>HT</span></p>
-            <p class="target">La solution parfaite pour présenter votre activité et vos services en détail.</p>
+            <p class="target">La solution parfaite pour présenter votre activité et vos services en détail. Idéal pour les <strong>PME</strong> et <strong>artisans</strong>.</p>
           </div>
           <ul class="features-list">
             <li>✔️ Jusqu'à 4 pages (Accueil, À propos, Services, Contact)</li>
@@ -117,7 +151,7 @@ onUnmounted(() => {
           <div class="card-header">
             <h4>Sur Mesure</h4>
             <p class="price">Sur devis</p>
-            <p class="target">Pour les projets complexes : e-commerce, application web, fonctionnalités spécifiques...</p>
+            <p class="target">Pour les projets complexes : <strong>e-commerce</strong>, <strong>application web</strong>, fonctionnalités spécifiques. Votre <strong>développement web personnalisé</strong>.</p>
           </div>
           <ul class="features-list">
             <li>✔️ Nombre de pages illimité</li>
@@ -134,22 +168,22 @@ onUnmounted(() => {
     <!-- SECTION PROCESSUS -->
     <section class="process-section animate-on-scroll">
       <span class="section-subtitle">Ma Méthode</span>
-      <h3 class="section-title">Comment se déroule un projet ?</h3>
+      <h3 class="section-title">Comment se déroule un projet de création de site web ?</h3>
       <div class="process-steps">
         <div class="step">
           <div class="step-number">1</div>
           <h4>Découverte</h4>
-          <p>Nous échangeons sur vos besoins, vos objectifs et vos attentes pour définir le cahier des charges.</p>
+          <p>Nous échangeons sur vos besoins, vos objectifs et vos attentes pour définir le cahier des charges de votre <strong>projet web</strong>.</p>
         </div>
         <div class="step">
           <div class="step-number">2</div>
           <h4>Conception</h4>
-          <p>Je conçois les maquettes (UI/UX) de votre site pour que vous puissiez visualiser le résultat final avant le développement.</p>
+          <p>Je conçois les maquettes (UI/UX) de votre <strong>site internet</strong> pour que vous puissiez visualiser le résultat final avant le développement.</p>
         </div>
         <div class="step">
           <div class="step-number">3</div>
           <h4>Développement</h4>
-          <p>Je transforme les maquettes en un site web fonctionnel, performant et optimisé pour tous les appareils.</p>
+          <p>Je transforme les maquettes en un <strong>site web fonctionnel</strong>, performant et optimisé pour tous les appareils.</p>
         </div>
         <div class="step">
           <div class="step-number">4</div>
@@ -162,7 +196,7 @@ onUnmounted(() => {
     <!-- SECTION FAQ -->
     <section class="faq-section animate-on-scroll">
       <span class="section-subtitle">Questions Fréquentes</span>
-      <h3 class="section-title">Besoin de plus d'informations ?</h3>
+      <h3 class="section-title">Besoin de plus d'informations sur la création de site web ?</h3>
       <div class="faq-container">
         <div v-for="(faq, index) in faqs" :key="index" class="faq-item">
           <button class="faq-question" @click="toggleFaq(index)">
