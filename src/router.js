@@ -4,6 +4,8 @@ import Projets from './components/Projets.vue'
 import About from './components/About.vue'
 import Contact from './components/Contact.vue'
 import Tarif from "./components/Tarif.vue";
+import MentionsLegales from "./components/MentionsLegales.vue";
+import PolitiqueDeConfidentialite from "./components/PolitiqueDeConfidentialite.vue";
 
 
 const routes = [
@@ -49,6 +51,24 @@ const routes = [
         component: Tarif,
         props: {
             title: 'tarifs',
+            sub: 'SIMPLE, CLAIR, EFFICACE'
+        }
+    },
+    {
+        path: '/mentions-legales',
+        name: 'MentionsLegales',
+        component: MentionsLegales,
+        props: {
+            title: 'Mentions Legales',
+            sub: 'SIMPLE, CLAIR, EFFICACE'
+        }
+    },
+    {
+        path: '/politique-de-confidentialite',
+        name: 'PolitiqueDeConfidentialite',
+        component: PolitiqueDeConfidentialite,
+        props: {
+            title: 'Politique De Confidentialite',
             sub: 'SIMPLE, CLAIR, EFFICACE'
         }
     },

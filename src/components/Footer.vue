@@ -98,6 +98,11 @@
     </div>
     <div class="footer-bottom">
       <span>© {{ new Date().getFullYear() }} Corantyn Vignon. Tous droits réservés.</span>
+      <!-- MODIFICATION ICI : Ajout des liens légaux -->
+      <div class="legal-links">
+        <router-link to="/mentions-legales">Mentions légales</router-link>
+        <router-link to="/politique-de-confidentialite">Politique de confidentialité</router-link>
+      </div>
     </div>
   </footer>
 </template>
@@ -321,7 +326,44 @@ $footer-hover: #ffffff;
   font-size: 14px;
   padding-top: 30px;
   color: #777;
+  // MODIFICATION ICI : Ajout de flexbox pour l'alignement
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 }
+
+// NOUVEAU : Styles pour les liens légaux
+.legal-links {
+  display: flex;
+  gap: 20px;
+  a {
+    color: #777;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: #777;
+      transition: width 0.3s ease;
+    }
+
+    &:hover {
+      color: $footer-text;
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
 
 // --- RESPONSIVE ---
 @media (max-width: 992px) {
@@ -355,6 +397,15 @@ $footer-hover: #ffffff;
     .social-links-footer {
       justify-content: center;
     }
+  }
+  // MODIFICATION ICI : Liens légaux en colonne sur mobile
+  .footer-bottom {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .legal-links {
+    flex-direction: column;
+    gap: 10px;
   }
 }
 
