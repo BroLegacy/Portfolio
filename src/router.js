@@ -6,6 +6,7 @@ import Contact from './components/Contact.vue'
 import Tarif from "./components/Tarif.vue";
 import MentionsLegales from "./components/MentionsLegales.vue";
 import PolitiqueDeConfidentialite from "./components/PolitiqueDeConfidentialite.vue";
+import NotFound from "./components/NotFound.vue";
 
 
 const routes = [
@@ -70,6 +71,15 @@ const routes = [
         props: {
             title: 'Politique De Confidentialite',
             sub: 'SIMPLE, CLAIR, EFFICACE'
+        }
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: NotFound,
+        props: {
+            title: 'NotFound',
+            sub: 'NotFound'
         }
     },
 ];
