@@ -30,7 +30,7 @@ const projects = ref([
     category: 'Développement Web',
     description: 'Site complet pour une association d\'airsoft, avec gestion des parties, inscriptions en ligne et panel d\'administration. Un exemple de création de site web sur mesure.',
     imageUrl: '/tfc.png',
-    link: 'https://sweet-paletas-024f85.netlify.app/',
+    link: 'https://buvettetfc.netlify.app/',
     technologies: ['Vue.js', 'Supabase', 'SCSS']
   },
   {
@@ -39,7 +39,7 @@ const projects = ref([
     category: 'Développement Web',
     description: 'Site vitrine pour une boulangerie, avec formulaire de contact. Une création de site web sur mesure.',
     imageUrl: '/louise.png',
-    link: 'https://sweet-paletas-024f85.netlify.app/',
+    link: 'https://buvettetfc.netlify.app/',
     technologies: ['HTML', 'CSS', 'JavaScript']
   },
   // Ajoutez d'autres projets ici avec des descriptions riches en mots-clés

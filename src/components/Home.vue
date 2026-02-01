@@ -177,7 +177,7 @@ onUnmounted(() => {
       <span class="section-subtitle">Portfolio</span>
       <h3 class="section-title">Quelques-uns de mes projets.</h3>
       <div class="projects-grid">
-        <a class="project-card" href="https://sweet-paletas-024f85.netlify.app/" target="_blank">
+        <a class="project-card" href="https://buvettetfc.netlify.app/" target="_blank">
           <img src="/tfc.png" alt="Création site web pour association d'airsoft Task Force Cerberus"> <!-- Alt text amélioré -->
           <div class="project-info">
             <h4>Task Force Cerberus</h4>
