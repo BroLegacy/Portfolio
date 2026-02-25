@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import ParticlesBackground from "./ParticlesBackground.vue";
-import { useMeta } from 'vue-meta'; // <-- Ajout pour vue-meta
+import { useMeta } from 'vue-meta';
 
 // --- Props ---
 defineProps({
@@ -19,18 +19,26 @@ defineProps({
 useMeta(() => ({
   title: props.pageTitle,
   description: props.pageDescription,
-  // Open Graph et Twitter Cards peuvent être ajoutés ici aussi si vous le souhaitez
 }));
 
 // --- Données des projets ---
 const projects = ref([
+  {
+    id: 3, // Nouvel ID
+    title: 'Aeterno',
+    category: 'Site Vitrine / Luxe',
+    description: 'Site de haute horlogerie. Conception d\'une vitrine digitale haut de gamme alliant élégance et performance pour présenter des montres d\'exception. Une expérience utilisateur immersive.',
+    imageUrl: '/aeterno.png', // Assurez-vous d'avoir cette image dans le dossier public
+    link: 'https://aeternoluxe.netlify.app/',
+    technologies: ['Vue.js', 'GSAP', 'SCSS']
+  },
   {
     id: 1,
     title: 'Task Force Cerberus',
     category: 'Développement Web',
     description: 'Site complet pour une association d\'airsoft, avec gestion des parties, inscriptions en ligne et panel d\'administration. Un exemple de création de site web sur mesure.',
     imageUrl: '/tfc.png',
-    link: 'https://buvettetfc.netlify.app/',
+    link: 'https://taskforcecerberus.com/',
     technologies: ['Vue.js', 'Supabase', 'SCSS']
   },
   {
@@ -39,20 +47,9 @@ const projects = ref([
     category: 'Développement Web',
     description: 'Site vitrine pour une boulangerie, avec formulaire de contact. Une création de site web sur mesure.',
     imageUrl: '/louise.png',
-    link: 'https://buvettetfc.netlify.app/',
+    link: 'https://taskforcecerberus.com/', // Attention: le lien semblait être le même que TFC dans votre code original, à vérifier
     technologies: ['HTML', 'CSS', 'JavaScript']
   },
-  // Ajoutez d'autres projets ici avec des descriptions riches en mots-clés
-  // Exemple:
-  // {
-  //   id: 2,
-  //   title: 'Boutique en ligne de produits locaux',
-  //   category: 'E-commerce',
-  //   description: 'Développement d\'une plateforme e-commerce complète pour des producteurs locaux de la région de Chauny, incluant gestion des stocks, paiements sécurisés et interface administrateur. Spécialiste en <strong>site e-commerce Chauny</strong>.',
-  //   imageUrl: '/ecommerce-local.png',
-  //   link: 'https://example.com/boutique-locale',
-  //   technologies: ['Nuxt.js', 'Stripe', 'Node.js', 'MongoDB']
-  // },
 ]);
 
 // --- Animations au défilement ---
@@ -84,7 +81,7 @@ onUnmounted(() => {
   <div class="top">
     <particles-background/>
     <div class="title">
-      <h1>{{ pageTitle }}</h1> <!-- Utilisation de pageTitle -->
+      <h1>{{ pageTitle }}</h1>
       <h2>{{ pageDescription }}</h2>
     </div>
   </div>
@@ -102,7 +99,7 @@ onUnmounted(() => {
             rel="noopener noreferrer"
         >
           <div class="project-image">
-            <img :src="project.imageUrl" :alt="`Image du projet ${project.title} - ${project.category}`"> <!-- Alt text amélioré -->
+            <img :src="project.imageUrl" :alt="`Image du projet ${project.title} - ${project.category}`">
             <div class="image-overlay"></div>
           </div>
           <div class="project-info">

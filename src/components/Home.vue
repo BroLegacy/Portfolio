@@ -1,10 +1,9 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import ParticlesBackground from "./ParticlesBackground.vue";
-import { useMeta } from 'vue-meta'; // <-- Ajout pour vue-meta
+import { useMeta } from 'vue-meta';
 
 // --- Props ---
-// J'ai modifié les props pour qu'elles soient plus descriptives pour le SEO
 defineProps({
   pageTitle: {
     type: String,
@@ -23,15 +22,15 @@ useMeta(() => ({
   og: {
     title: props.pageTitle,
     description: props.pageDescription,
-    image: 'URL_DE_VOTRE_IMAGE_DE_PARTAGE.jpg', // Remplacez par l'URL de votre image de partage
-    url: 'URL_DE_VOTRE_SITE.com', // Remplacez par l'URL de votre site
+    image: 'URL_DE_VOTRE_IMAGE_DE_PARTAGE.jpg',
+    url: 'URL_DE_VOTRE_SITE.com',
     type: 'website'
   },
   twitter: {
     card: 'summary_large_image',
     title: props.pageTitle,
     description: props.pageDescription,
-    image: 'URL_DE_VOTRE_IMAGE_DE_PARTAGE.jpg' // Remplacez par l'URL de votre image de partage
+    image: 'URL_DE_VOTRE_IMAGE_DE_PARTAGE.jpg'
   }
 }));
 
@@ -55,7 +54,7 @@ const changeText = () => {
       textIndex = (textIndex + 1) % texts.length;
       subText.value = texts[textIndex];
       h2.style.opacity = 1;
-    }, 500); // Temps pour le fade-out
+    }, 500);
   }
 };
 
@@ -63,10 +62,8 @@ const changeText = () => {
 let observer;
 
 onMounted(() => {
-  // Démarrer l'animation du texte
   intervalId = setInterval(changeText, 3000);
 
-  // Configurer l'Intersection Observer pour les animations au scroll
   observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -77,18 +74,16 @@ onMounted(() => {
         });
       },
       {
-        threshold: 0.1, // L'animation se déclenche quand 10% de l'élément est visible
+        threshold: 0.1,
       }
   );
 
-  // Observer tous les éléments avec la classe 'animate-on-scroll'
   document.querySelectorAll('.animate-on-scroll').forEach((el) => {
     observer.observe(el);
   });
 });
 
 onUnmounted(() => {
-  // Nettoyer l'intervalle et l'observer pour éviter les fuites de mémoire
   clearInterval(intervalId);
   if (observer) {
     observer.disconnect();
@@ -101,7 +96,7 @@ onUnmounted(() => {
   <div class="top">
     <particles-background />
     <div class="title">
-      <h1>{{ pageTitle }}</h1> <!-- Utilisation de pageTitle -->
+      <h1>{{ pageTitle }}</h1>
       <h2 class="animated-h2">{{ subText }}</h2>
     </div>
     <div class="scroll-indicator">
@@ -114,7 +109,7 @@ onUnmounted(() => {
     <!-- SECTION À PROPOS -->
     <section class="about-section animate-on-scroll">
       <div class="about-image">
-        <img src="/pdp.jpg" alt="Photo de Corantyn Vignon, développeur web freelance"> <!-- Alt text amélioré -->
+        <img src="/pdp.jpg" alt="Photo de Corantyn Vignon, développeur web freelance">
       </div>
       <div class="about-text">
         <span class="section-subtitle">À propos</span>
@@ -177,16 +172,29 @@ onUnmounted(() => {
       <span class="section-subtitle">Portfolio</span>
       <h3 class="section-title">Quelques-uns de mes projets.</h3>
       <div class="projects-grid">
-        <a class="project-card" href="https://buvettetfc.netlify.app/" target="_blank">
-          <img src="/tfc.png" alt="Création site web pour association d'airsoft Task Force Cerberus"> <!-- Alt text amélioré -->
+        <!-- PROJET AETERNO -->
+        <a class="project-card" href="https://aeternoluxe.netlify.app/" target="_blank">
+          <img src="/aeterno.png" alt="Site internet Aeterno Haute Horlogerie">
+          <div class="project-info">
+            <h4>Aeterno</h4>
+            <p>Site de haute horlogerie. Une vitrine digitale élégante et immersive pour des montres d'exception.</p>
+            <span class="project-link">Voir le projet &rarr;</span>
+          </div>
+        </a>
+
+        <!-- PROJET TFC -->
+        <a class="project-card" href="https://taskforcecerberus.com/" target="_blank">
+          <img src="/tfc.png" alt="Création site web pour association d'airsoft Task Force Cerberus">
           <div class="project-info">
             <h4>Task Force Cerberus</h4>
             <p>Site complet pour une association d'airsoft, avec gestion des parties, inscriptions en ligne et panel d'administration.</p>
             <span class="project-link">Voir le projet &rarr;</span>
           </div>
         </a>
+
+        <!-- PROJET CHEZ LOUISE -->
         <a class="project-card" href="https://chezlouise.netlify.app/" target="_blank">
-          <img src="/louise.png" alt="Création site web pour association d'airsoft Task Force Cerberus"> <!-- Alt text amélioré -->
+          <img src="/louise.png" alt="Création site web pour boulangerie Chez Louise">
           <div class="project-info">
             <h4>Chez Louise</h4>
             <p>Site vitrine pour une boulangerie, avec formulaire de contact.</p>
@@ -218,7 +226,7 @@ onUnmounted(() => {
 // --- VARIABLES DE COULEUR ---
 $primary-color: #000000;
 $secondary-color: #FFFFFF;
-$accent-color: #4A90E2; // Un bleu pour contraster
+$accent-color: #4A90E2;
 $text-color: #333;
 $light-gray: #f8f9fa;
 
@@ -242,8 +250,7 @@ $light-gray: #f8f9fa;
 
 .section-title {
   font-family: 'League Gothic', sans-serif;
-  // Typographie fluide pour un meilleur responsive
-  font-size: clamp(2.5rem, 6vw, 3rem); // min, idéal, max
+  font-size: clamp(2.5rem, 6vw, 3rem);
   color: $primary-color;
   margin-bottom: 40px;
   line-height: 1.2;
@@ -281,17 +288,10 @@ $light-gray: #f8f9fa;
 
 // --- SECTION HERO (.top) ---
 .top {
-  /*
-    Les styles pour .title, h1 et h2 sont gérés par les styles par défaut
-    du navigateur ou les styles globaux, car il n'y a plus de clamp() ici.
-    Vous pouvez ajouter des tailles fixes si nécessaire, comme ci-dessous.
-  */
   .title {
     h1 {
-      // font-size: 72px; /* Exemple de taille fixe */
     }
     h2 {
-      // font-size: 48px; /* Exemple de taille fixe */
     }
   }
 
@@ -409,15 +409,46 @@ $light-gray: #f8f9fa;
   }
 }
 
-// --- SECTION PROJETS ---
+// --- SECTION PROJETS (GRILLE AMÉLIORÉE) ---
 .projects-section {
   text-align: center;
 
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
     margin-top: 60px;
+
+    // Mobile First : 1 colonne par défaut
+    grid-template-columns: 1fr;
+
+    // Tablette (>= 768px) : 2 colonnes
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+
+      // ASTUCE : Le premier projet (Aeterno) prend toute la largeur sur tablette
+      // pour éviter d'avoir un projet orphelin sur la 2ème ligne (car 3 projets au total)
+      & > .project-card:first-child {
+        grid-column: span 2;
+
+        // On ajuste l'image pour qu'elle ne soit pas trop haute quand la carte est large
+        img {
+          height: 300px; // Un peu plus haut pour le "Featured"
+        }
+      }
+    }
+
+    // Desktop (>= 1024px) : 3 colonnes strictes
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+
+      // On remet le premier élément en taille normale (1 colonne)
+      & > .project-card:first-child {
+        grid-column: span 1;
+        img {
+          height: 220px; // Retour à la hauteur standard
+        }
+      }
+    }
   }
 
   .project-card {
@@ -429,6 +460,8 @@ $light-gray: #f8f9fa;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
+    display: flex;
+    flex-direction: column; // Assure que le contenu s'empile bien
 
     img {
       width: 100%;
@@ -440,6 +473,9 @@ $light-gray: #f8f9fa;
     .project-info {
       padding: 25px;
       text-align: left;
+      flex-grow: 1; // Remplit l'espace restant
+      display: flex;
+      flex-direction: column;
     }
 
     h4 {
@@ -452,6 +488,7 @@ $light-gray: #f8f9fa;
       font-family: 'League Spartan', sans-serif;
       font-size: 16px;
       margin-bottom: 20px;
+      flex-grow: 1; // Pousse le lien vers le bas
     }
 
     .project-link {
@@ -459,6 +496,7 @@ $light-gray: #f8f9fa;
       font-weight: 700;
       color: $accent-color;
       transition: color 0.3s ease;
+      margin-top: auto; // Colle le lien en bas
     }
 
     &:hover {
