@@ -47,7 +47,7 @@ const projects = ref([
     category: 'Développement Web',
     description: 'Site vitrine pour une boulangerie, avec formulaire de contact. Une création de site web sur mesure.',
     imageUrl: '/louise.png',
-    link: 'https://taskforcecerberus.com/', // Attention: le lien semblait être le même que TFC dans votre code original, à vérifier
+    link: 'https://chezlouise.netlify.app/', // Attention: le lien semblait être le même que TFC dans votre code original, à vérifier
     technologies: ['HTML', 'CSS', 'JavaScript']
   },
 ]);
