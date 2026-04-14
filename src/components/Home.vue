@@ -172,15 +172,6 @@ onUnmounted(() => {
       <span class="section-subtitle">Portfolio</span>
       <h3 class="section-title">Quelques-uns de mes projets.</h3>
       <div class="projects-grid">
-        <!-- PROJET AETERNO -->
-        <a class="project-card" href="https://aeternoluxe.netlify.app/" target="_blank">
-          <img src="/aeterno.png" alt="Site internet Aeterno Haute Horlogerie">
-          <div class="project-info">
-            <h4>Aeterno</h4>
-            <p>Site de haute horlogerie. Une vitrine digitale élégante et immersive pour des montres d'exception.</p>
-            <span class="project-link">Voir le projet &rarr;</span>
-          </div>
-        </a>
 
         <!-- PROJET TFC -->
         <a class="project-card" href="https://taskforcecerberus.com/" target="_blank">
@@ -198,6 +189,16 @@ onUnmounted(() => {
           <div class="project-info">
             <h4>Chez Louise</h4>
             <p>Site vitrine pour une boulangerie, avec formulaire de contact.</p>
+            <span class="project-link">Voir le projet &rarr;</span>
+          </div>
+        </a>
+
+        <!-- PROJET CHEZ LOUISE -->
+        <a class="project-card" href="https://luco-market.netlify.app/" target="_blank">
+          <img src="/luco.png" alt="Création site web pour une agence de gestion d'événements">
+          <div class="project-info">
+            <h4>Studio & Code</h4>
+            <p>Site complexe pour une agence de gestion d'événements.</p>
             <span class="project-link">Voir le projet &rarr;</span>
           </div>
         </a>

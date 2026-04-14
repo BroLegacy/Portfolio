@@ -50,6 +50,15 @@ const projects = ref([
     link: 'https://chezlouise.netlify.app/', // Attention: le lien semblait être le même que TFC dans votre code original, à vérifier
     technologies: ['HTML', 'CSS', 'JavaScript']
   },
+  {
+    id: 3,
+    title: 'Studio & Code',
+    category: 'Développement Web',
+    description: "Site complexe pour une agence de gestion d'événements. Une création de site web sur mesure.",
+    imageUrl: '/luco.png',
+    link: 'https://luco-market.netlify.app/', // Attention: le lien semblait être le même que TFC dans votre code original, à vérifier
+    technologies: ['Vue.js', 'Supabase', 'TailwindCSS']
+  },
 ]);
 
 // --- Animations au défilement ---
